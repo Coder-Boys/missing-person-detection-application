@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "./darkModeBtn";
 
 export default function Component() {
   return (
@@ -45,6 +46,7 @@ export default function Component() {
         >
           Contact
         </Link>
+        <ModeToggle />
       </div>
       <Sheet>
         <SheetTrigger asChild>
@@ -90,6 +92,7 @@ export default function Component() {
             >
               Contact
             </Link>
+            <ModeToggle />
           </div>
         </SheetContent>
       </Sheet>

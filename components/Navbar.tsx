@@ -6,48 +6,55 @@ import { ModeToggle } from "./darkModeBtn";
 export default function Component() {
   return (
     <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
-      <Link href="#" className="flex items-center gap-2" prefetch={false}>
+      <Link href="#" className="flex items-center justify-center gap-2" prefetch={false}>
         <MountainIcon className="h-6 w-6" />
         <span className="text-lg font-semibold">Acme Inc</span>
       </Link>
-      <div className="hidden md:flex gap-4">
+      <nav className="hidden justify-center items-center md:flex space-x-6 font-semibold text-sm uppercase">
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
           Home
         </Link>
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
           About
         </Link>
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
           Services
         </Link>
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
           Portfolio
         </Link>
         <Link
           href="#"
-          className="text-lg font-medium hover:underline underline-offset-4"
+          className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
           Contact
         </Link>
+        <Link
+              href="#"
+              className="bg-my-gradient inline-flex h-9 items-center w-16 justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              prefetch={false}
+            >
+              Login
+            </Link>
         <ModeToggle />
-      </div>
+      </nav>
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
@@ -56,44 +63,51 @@ export default function Component() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
-          <div className="grid w-[200px] p-4">
+          <nav className="grid w-[200px] p-4 space-y-4 text-sm uppercase ">
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="font-medium hover:text-violet-500"
               prefetch={false}
             >
               Home
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="font-medium hover:text-violet-500"
               prefetch={false}
             >
               About
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="font-medium hover:text-violet-500"
               prefetch={false}
             >
               Services
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="font-medium hover:text-violet-500"
               prefetch={false}
             >
               Portfolio
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium hover:underline underline-offset-4"
+              className="font-medium hover:text-violet-500"
               prefetch={false}
             >
               Contact
             </Link>
+            <Link
+              href="#"
+              className="bg-my-gradient inline-flex h-10 items-center justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              prefetch={false}
+            >
+              Login
+            </Link>
             <ModeToggle />
-          </div>
+          </nav>
         </SheetContent>
       </Sheet>
     </div>

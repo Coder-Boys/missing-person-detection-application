@@ -5,10 +5,10 @@ import { ModeToggle } from "./darkModeBtn";
 
 export default function Component() {
   return (
-    <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
+    <div className="flex items-center justify-between px-4 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link href="#" className="flex items-center justify-center gap-2" prefetch={false}>
         <MountainIcon className="h-6 w-6" />
-        <span className="text-lg font-semibold">Acme Inc</span>
+        <span className="text-lg font-semibold">FINDER</span>
       </Link>
       <nav className="hidden justify-center items-center md:flex space-x-6 font-semibold text-sm uppercase">
         <Link

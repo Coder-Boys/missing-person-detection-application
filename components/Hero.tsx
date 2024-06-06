@@ -5,8 +5,10 @@ export default function Component() {
     <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container grid place-content-center items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">
         <div>
+
+          
           <h1 className="text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)] sm:text-6xl md:text-6xl lg:text-[90px] drop-shadow-2xl">
-          Bringing Hope Identify and Reunite the Missing !
+          <span className="text-gray-300">Bringing Hope</span> Identify and <span className="text-gray-300">Reunite the</span> Missing
           </h1>
         </div>
         <div className="flex flex-col items-start space-y-4">

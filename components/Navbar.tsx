@@ -20,6 +20,7 @@ export default function Component() {
         </Link>
         <Link
           href="#"
+          
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >

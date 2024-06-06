@@ -3,6 +3,7 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./darkModeBtn";
 import { Input } from "@/components/ui/input";
+import { SearchInput } from "./SearchInput";
 
 export default function Component() {
   return (
@@ -17,8 +18,7 @@ export default function Component() {
       </Link>
       <nav>
         <div className="flex w-full max-w-sm items-center space-x-2 px-2">
-          <Input type="text" placeholder="Type Name" />
-          <Button className="bg-my-gradient" type="submit">Search</Button>
+          <SearchInput />
         </div>
       </nav>
       <nav className="hidden justify-center items-center md:flex space-x-6 font-semibold text-sm uppercase">
@@ -48,7 +48,7 @@ export default function Component() {
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
-          Founded 
+          Founded
         </Link>
         <Link
           href="/contact"

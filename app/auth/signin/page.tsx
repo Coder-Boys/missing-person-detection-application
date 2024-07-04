@@ -14,7 +14,10 @@ import { signIn } from "@/auth";
 
 export default function LoginForm() {
   return (
-    <Card  style={{backgroundImage: `url(/bg2.avif)`}} className="mx-auto max-w-sm mt-20">
+    <Card
+      style={{ backgroundImage: `url(/bg2.avif)` }}
+      className="mx-auto max-w-sm mt-20"
+    >
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription className="text-gray-200">
@@ -35,7 +38,7 @@ export default function LoginForm() {
               name="email"
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="pr@example.com"
               required
             />
           </div>

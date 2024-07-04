@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import img from '@/public/google.png'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 
 export default function LoginForm() {
   const router = useRouter();
@@ -38,14 +41,17 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.log("Error in submitting form", error);
+
+
     }
   };
   return (
-    <Card className="mx-auto max-w-sm mt-5">
+    <Card style={{backgroundImage: `url(/bg2.avif)`}} className="mx-auto max-w-sm mt-5">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
           Enter your information to create an account
+          
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -57,7 +63,7 @@ export default function LoginForm() {
                 onChange={(e) => setFirstName(e.target.value)}
                 value={firstName}
                 id="first-name"
-                placeholder="Max"
+                placeholder="Type"
                 required
               />
             </div>
@@ -67,7 +73,7 @@ export default function LoginForm() {
                 onChange={(e) => setLastName(e.target.value)}
                 value={lastName}
                 id="last-name"
-                placeholder="Robinson"
+                placeholder="Type"
                 required
               />
             </div>
@@ -92,10 +98,11 @@ export default function LoginForm() {
               type="password"
             />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-my-gradient">
             Create an account
           </Button>
           <Button variant="outline" className="w-full">
+            <Image alt="" className="w-5 mr-2" src={img}/>
             Sign up with Google
           </Button>
         </form>

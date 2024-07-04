@@ -15,32 +15,33 @@ export function SearchInput() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={"outline"} className="border-green-500">
+        <Button variant={"outline"} className="border-violet-500">
           <TbWorldSearch size={20} className="mr-2 text-gray-600" />
-          <span className="text-gray-500">Search found person...</span>
+          <span className="text-gray-500">Search Here...</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>View the found person</DialogTitle>
+          <DialogTitle>Search The Missing Person</DialogTitle>
           <DialogDescription>
-            Search the name of the found person
+            Search with name of the missing person
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <div  className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
             <Input
               id="name"
-              defaultValue="Name of person"
+              placeholder="Type Here"
+              name="search"
               className="col-span-3"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" className="text-center">
+          <Button  type="submit" className="text-center bg-my-gradient">
             Search
           </Button>
         </DialogFooter>

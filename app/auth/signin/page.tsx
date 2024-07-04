@@ -14,11 +14,11 @@ import { signIn } from "@/auth";
 
 export default function LoginForm() {
   return (
-    <Card className="mx-auto max-w-sm mt-5">
+    <Card  style={{backgroundImage: `url(/bg2.avif)`}} className="mx-auto max-w-sm mt-20">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>
-          Enter your email below to login to your account
+        <CardDescription className="text-gray-200">
+          Enter your email & password below to login to your account
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -49,12 +49,12 @@ export default function LoginForm() {
             <Input name="password" id="password" type="password" required />
           </div>
 
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full bg-my-gradient">
             Login
           </Button>
         </form>
 
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-4 text-center text-sm text-white">
           Don&apos;t have an account?
           <Link href="/auth/signup" className="underline">
             Sign up

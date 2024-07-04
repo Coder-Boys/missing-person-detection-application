@@ -13,11 +13,11 @@ export default async function Navbar() {
   return (
     <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link
-        href="#"
+        href="/"
         className="flex items-center justify-center gap-2"
         prefetch={false}
       >
-        <MountainIcon className="h-6 w-6" />
+        <MountainIcon className="h-6 w-6 text-violet-500" />
         <span className="text-lg font-semibold">FINDER</span>
       </Link>
       <nav>

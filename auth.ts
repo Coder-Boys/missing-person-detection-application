@@ -8,10 +8,7 @@ import User from "./lib/schema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    Google({
-      clientId: process.env.AUTH_GOOGLE_ID,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET,
-    }),
+    Google,
 
     Credentials({
       name: "Credentials",

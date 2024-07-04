@@ -1,6 +1,4 @@
-"use client";
 import Link from "next/link";
-import img from '@/public/google.png'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,56 +10,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+
 import Image from "next/image";
+import { getSession } from "@/lib/getSession";
+import { redirect } from "next/navigation";
+import { register } from "@/action/user";
 
+export default async function LoginForm() {
+  const session = await getSession();
+  const user = session?.user;
+  if (user) redirect("/");
 
-export default function LoginForm() {
-  const router = useRouter();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPass] = useState("");
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch("http://localhost:3000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-type": "json/application",
-        },
-        body: JSON.stringify({ firstName, lastName, email, password }),
-      });
-      if (res.ok) {
-        router.push("/");
-        console.log("form submitted");
-      }
-    } catch (error) {
-      console.log("Error in submitting form", error);
-
-
-    }
-  };
   return (
-    <Card style={{backgroundImage: `url(/bg2.avif)`}} className="mx-auto max-w-sm mt-5">
+    <Card
+      style={{ backgroundImage: `url(/bg2.avif)` }}
+      className="mx-auto max-w-sm mt-5"
+    >
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
           Enter your information to create an account
-          
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="grid gap-4">
+        <form action={register} className="grid gap-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
               <Label htmlFor="first-name">First name</Label>
               <Input
-                onChange={(e) => setFirstName(e.target.value)}
-                value={firstName}
+                name="firstname"
                 id="first-name"
                 placeholder="Type"
                 required
@@ -70,8 +47,7 @@ export default function LoginForm() {
             <div className="grid gap-2">
               <Label htmlFor="last-name">Last name</Label>
               <Input
-                onChange={(e) => setLastName(e.target.value)}
-                value={lastName}
+                name="lastname"
                 id="last-name"
                 placeholder="Type"
                 required
@@ -81,8 +57,7 @@ export default function LoginForm() {
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              name="email"
               id="email"
               type="email"
               placeholder="m@example.com"
@@ -91,23 +66,14 @@ export default function LoginForm() {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input
-              onChange={(e) => setPass(e.target.value)}
-              value={password}
-              id="password"
-              type="password"
-            />
+            <Input name="password" id="password" type="password" />
           </div>
           <Button type="submit" className="w-full bg-my-gradient">
             Create an account
           </Button>
-          <Button variant="outline" className="w-full">
-            <Image alt="" className="w-5 mr-2" src={img}/>
-            Sign up with Google
-          </Button>
         </form>
         <div className="mt-4 text-center text-sm">
-          Already have an account?{" "}
+          Already have an account?
           <Link href="/auth/signin" className="underline">
             Sign in
           </Link>

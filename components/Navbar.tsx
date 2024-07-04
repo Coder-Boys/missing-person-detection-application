@@ -3,11 +3,13 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./darkModeBtn";
 import { SearchInput } from "./SearchInput";
-import { auth, signOut } from "@/auth";
+import { signOut } from "@/auth";
+import { getSession } from "@/lib/getSession";
 
 export default async function Navbar() {
-  const session = await auth();
-  console.log(session);
+  const session = await getSession();
+  const user = session?.user;
+  console.log(user);
   return (
     <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link
@@ -31,7 +33,7 @@ export default async function Navbar() {
         >
           Home
         </Link>
-        <p>{session?.user?.email}</p>
+        <p className="text-green-500 font-bold">{user?.email}</p>
         <Link
           href="/feed"
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
@@ -60,23 +62,45 @@ export default async function Navbar() {
         >
           Contact
         </Link>
-        {session && session.user ? (
-          <form
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <button type="submit">Sign Out</button>
-          </form>
+        {!user ? (
+          <>
+            <Link
+              href="/auth/signin"
+              className="bg-my-gradient inline-flex h-9 items-center w-16 justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              prefetch={false}
+            >
+              Login
+            </Link>
+          </>
         ) : (
-          <Link
-            href="/auth/signin"
-            className="bg-my-gradient inline-flex h-9 items-center w-16 justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-            prefetch={false}
-          >
-            Login
-          </Link>
+          <>
+            <form
+              action={async () => {
+                "use server";
+                await signOut();
+              }}
+            >
+              <Button variant={"outline"} type="submit">
+                Sign Out
+              </Button>
+            </form>
+            <Link
+              href="/dashboard"
+              className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+              prefetch={false}
+            >
+              Dashboard
+            </Link>
+            {user?.role === "admin" && (
+              <Link
+                href="/private/settings"
+                className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+                prefetch={false}
+              >
+                Settings
+              </Link>
+            )}
+          </>
         )}
 
         <ModeToggle />

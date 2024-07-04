@@ -42,7 +42,7 @@ export default function LoginForm() {
     } catch (error) {
       console.log("Error in submitting form", error);
 
-      
+
     }
   };
   return (
@@ -51,6 +51,7 @@ export default function LoginForm() {
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
           Enter your information to create an account
+          
         </CardDescription>
       </CardHeader>
       <CardContent>

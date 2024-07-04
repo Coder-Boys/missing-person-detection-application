@@ -2,12 +2,14 @@ import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./darkModeBtn";
-import { Input } from "@/components/ui/input";
 import { SearchInput } from "./SearchInput";
+import { auth, signOut } from "@/auth";
 
-export default function Component() {
+export default async function Navbar() {
+  const session = await auth();
+  console.log(session);
   return (
-    <div className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
+    <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link
         href="#"
         className="flex items-center justify-center gap-2"
@@ -29,6 +31,7 @@ export default function Component() {
         >
           Home
         </Link>
+        <p>{session?.user?.email}</p>
         <Link
           href="/contact"
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
@@ -57,13 +60,25 @@ export default function Component() {
         >
           Contact
         </Link>
-        <Link
-          href="/login"
-          className="bg-my-gradient inline-flex h-9 items-center w-16 justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-          prefetch={false}
-        >
-          Login
-        </Link>
+        {session && session.user ? (
+          <form
+            action={async () => {
+              "use server";
+              await signOut();
+            }}
+          >
+            <button type="submit">Sign Out</button>
+          </form>
+        ) : (
+          <Link
+            href="/auth/signin"
+            className="bg-my-gradient inline-flex h-9 items-center w-16 justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            prefetch={false}
+          >
+            Login
+          </Link>
+        )}
+
         <ModeToggle />
       </nav>
 
@@ -112,7 +127,7 @@ export default function Component() {
               Contact
             </Link>
             <Link
-              href="/login"
+              href="/auth/signin"
               className="bg-my-gradient inline-flex h-10 items-center justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
               prefetch={false}
             >
@@ -122,7 +137,7 @@ export default function Component() {
           </nav>
         </SheetContent>
       </Sheet>
-    </div>
+    </nav>
   );
 }
 

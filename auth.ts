@@ -1,61 +1,107 @@
-import NextAuth from "next-auth";
-import { ZodError } from "zod";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import brcypt from "bcryptjs";
+import Google from "next-auth/providers/google";
 
+import { compare } from "bcryptjs";
+import connectMongoDB from "./lib/mongodb";
 import User from "./lib/schema";
-import { signInSchema } from "./lib/zod";
-import clientPromise from "./lib/mongoAdapter";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
   providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
+
     Credentials({
+      name: "Credentials",
+
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
+
       authorize: async (credentials) => {
-        try {
-          let user = null;
+        const email = credentials.email as string | undefined;
+        const password = credentials.password as string | undefined;
 
-          // logic to salt and hash password
-          //   const pwHash = brcypt.hash(credentials.password as string, 10);
-
-          // logic to verify if user exists
-          const { email, password } = await signInSchema.parseAsync(
-            credentials
-          );
-          user = await User.findOne({
-            email: credentials.email,
-            password: credentials.password,
-          });
-          if (user) {
-            console.log("user signed in");
-          }
-
-          if (!user) {
-            // No user found, so this is their first attempt to login
-            // meaning this is also the place you could do registration
-            throw new Error("User not found.");
-          }
-
-          // return user object with the their profile data
-          return user;
-        } catch (error) {
-          console.log(error);
-          if (error instanceof ZodError) {
-            // Return `null` to indicate that the credentials are invalid
-            return null;
-          }
+        if (!email || !password) {
+          throw new CredentialsSignin("Please provide both email & password");
         }
+
+        await connectMongoDB();
+
+        const user = await User.findOne({ email }).select("+password +role");
+
+        if (!user) {
+          throw new Error("Invalid email or password");
+        }
+
+        if (!user.password) {
+          throw new Error("Invalid email or password");
+        }
+
+        const isMatched = await compare(password, user.password);
+
+        if (!isMatched) {
+          throw new Error("Password did not matched");
+        }
+
+        const userData = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+          id: user._id,
+        };
+
+        return userData;
       },
     }),
   ],
+
+  pages: {
+    signIn: "/login",
+  },
+
   callbacks: {
-    session({ session, user }) {
-      session.user.id = user.id;
+    async session({ session, token }) {
+      if (token?.sub && token?.role) {
+        session.user.id = token.sub;
+        session.user.role = token.role;
+      }
       return session;
+    },
+
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+
+    signIn: async ({ user, account }) => {
+      if (account?.provider === "google") {
+        try {
+          const { email, name, image, id } = user;
+          await connectMongoDB();
+          const alreadyUser = await User.findOne({ email });
+
+          if (!alreadyUser) {
+            await User.create({ email, name, image, authProviderId: id });
+          } else {
+            return true;
+          }
+        } catch (error) {
+          throw new Error("Error while creating user");
+        }
+      }
+
+      if (account?.provider === "credentials") {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 });

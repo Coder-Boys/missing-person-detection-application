@@ -1,4 +1,5 @@
 import Link from "next/link";
+import img from "@/public/google.png";
 
 import {
   Card,
@@ -10,9 +11,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/getSession";
+import { login } from "@/action/user";
 import { signIn } from "@/auth";
+import Image from "next/image";
 
-export default function LoginForm() {
+export default async function LoginForm() {
+  const session = await getSession();
+  const user = session?.user;
+  if (user) redirect("/");
   return (
     <Card
       style={{ backgroundImage: `url(/bg2.avif)` }}
@@ -25,13 +33,7 @@ export default function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form
-          action={async (formData) => {
-            "use server";
-            await signIn("credentials", formData);
-          }}
-          className="grid gap-4"
-        >
+        <form action={login} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -52,11 +54,21 @@ export default function LoginForm() {
             <Input name="password" id="password" type="password" required />
           </div>
 
-          <Button type="submit" className="w-full bg-my-gradient">
+          <Button type="submit" className="w-full bg-my-gradient mb-2">
             Login
           </Button>
         </form>
-
+        <form
+          action={async () => {
+            "use server";
+            await signIn("google");
+          }}
+        >
+          <Button variant="outline" className="w-full">
+            <Image alt="" className="w-5 mr-2" src={img} />
+            Sign in with Google
+          </Button>
+        </form>
         <div className="mt-4 text-center text-sm text-white">
           Don&apos;t have an account?
           <Link href="/auth/signup" className="underline">

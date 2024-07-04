@@ -1,6 +1,7 @@
 'use client'
 import * as React from "react";
 
+
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
@@ -113,6 +114,10 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       </SelectContent>
     </Select>
       </div>
+      <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="picture">Picture</Label>
+      <Input id="picture" type="file" />
+    </div>
       <Button className="bg-my-gradient" type="submit">Submit</Button>
     </form>
    </div>

@@ -41,6 +41,8 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.log("Error in submitting form", error);
+
+      
     }
   };
   return (

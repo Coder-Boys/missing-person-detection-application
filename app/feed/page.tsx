@@ -42,7 +42,7 @@ export default function Feed() {
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog  open={open} onOpenChange={setOpen}>
         <div className="flex justify-end">
         <DialogTrigger className="hover:ease-in hover:scale-110 hover:duration-150" asChild>
           <Button className="bg-my-gradient m-5 dark:text-black text-white " variant="outline"><IoMdAdd size={20} />  Add Missing Person</Button>
@@ -88,7 +88,7 @@ export default function Feed() {
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
   return (
-   <div>
+   <div  style={{ backgroundImage: `url(/bg2.avif)` }}>
      <form className={cn("grid items-start gap-4", className)}>
       <div className="grid gap-3">
         <Label htmlFor="username">Name</Label>

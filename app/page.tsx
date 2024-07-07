@@ -1,12 +1,12 @@
-import About from "@/components/About";
+
 import { ModeToggle } from "@/components/darkModeBtn";
-import Hero from "@/components/Hero";
+import HomePage from "./Home/HomePage";
+
 
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <About/>
+    <HomePage/>
     </main>
   );
 }

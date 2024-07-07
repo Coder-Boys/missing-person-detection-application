@@ -49,7 +49,7 @@ export default async function Navbar() {
           Missing
         </Link>
         <Link
-          href="/missing"
+          href="/found"
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
           prefetch={false}
         >
@@ -137,7 +137,7 @@ export default async function Navbar() {
               Missing
             </Link>
             <Link
-              href="/founded"
+              href="/found"
               className="font-medium hover:text-violet-500"
               prefetch={false}
             >

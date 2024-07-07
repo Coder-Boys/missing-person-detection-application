@@ -1,7 +1,8 @@
 import Link from "next/link";
-import LottieAnimation from "./LottieAnimation";
-import lottie from "./lottieFiles/model3.json";
-export default function Component() {
+
+import lottie from "../../components/lottieFiles/model3.json";
+import LottieAnimation from "@/components/LottieAnimation";
+export default function Hero() {
   return (
     <section className="w-full py-8 md:py-20 lg:py-28s">
       <div className="container grid place-content-center items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10">

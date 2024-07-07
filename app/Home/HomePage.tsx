@@ -1,12 +1,20 @@
-import Component from '@/components/Navbar';
-import React from 'react';
+import Component from "@/components/Navbar";
+import React from "react";
+import Hero from "./Hero";
+import About from "./About";
+import Statistics from "./Statistics";
+import Footer from "./Footer";
 
 const HomePage = () => {
-    return (
-        <div>
-            <Component/>
-        </div>
-    );
+  return (
+    <div>
+      <Hero />
+      <About />
+      <Statistics />
+
+      <Footer />
+    </div>
+  );
 };
 
 export default HomePage;

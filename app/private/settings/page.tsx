@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 const Settings = async () => {
   const session = await getSession();
-  const user = session?.user;
+  const user: any = session?.user;
   if (!user) return redirect("/auth/signin");
 
   if (user?.role !== "admin") return redirect("/private/settings");

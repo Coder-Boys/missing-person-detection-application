@@ -1,10 +1,17 @@
-import AddMissingForm from '@/components/AddMissingForm';
-import React from 'react';
+import AddMissingForm from "@/components/AddMissingForm";
+import MissingPerson from "@/lib/MissingPersonSchema";
+import connectMongoDB from "@/lib/mongodb";
+import React from "react";
 
-const Feed = () => {
+const Feed = async () => {
+  await connectMongoDB();
+  const persons = await MissingPerson.find({});
   return (
     <div>
-      <AddMissingForm/>
+      {persons.map((person) => (
+        <li key={person._id}>{person.gender}</li>
+      ))}
+      <AddMissingForm />
     </div>
   );
 };

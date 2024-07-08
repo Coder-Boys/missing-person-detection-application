@@ -46,7 +46,7 @@ const About = () => {
               them to their family.
             </p>
           </div>
-          {/* <Button className="bg-my-gradient self-start my-6">Read More</Button> */}
+        
         </div>
       </div>
     </div>

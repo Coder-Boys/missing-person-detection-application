@@ -7,6 +7,7 @@ const missingPersonSchema = new Schema(
     height: { type: String, required: false },
     gender: { type: String, required: true },
     userId: { type: String, required: false },
+    imageUrl :{ type: String, required: true}
     // photo: { type: String, required: true },
   },
   { timestamps: true }

@@ -141,9 +141,19 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       .then((imageResponse) => {
         if (imageResponse.success) {
           alert("successfully added");
-          formData.append('imageUrl',imageResponse.data.display_url);
+          const imgUrl = imageResponse.data.display_url
+          const {name,age,height,gender} = data;
+          const formData = {
+            name:name,
+            age:age,
+            height:height,
+            gender:gender,
+            imageUrl:imgUrl,
+          }
         }
+        
       });
+    
   };
   console.log(image);
 
@@ -160,15 +170,16 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       >
         <div className="grid gap-3 text-white">
           <Label htmlFor="username">Name</Label>
-          <Input type="text" id="name" name="name" placeholder="Type Here" />
+          <Input {...register("name", { required: true, maxLength: 120 })} type="text" id="name" name="name" placeholder="Type Here" />
         </div>
         <div className="grid gap-3 text-white">
           <Label htmlFor="username">Age</Label>
-          <Input type="number" id="age" name="age" placeholder="Type Here" />
+          <Input {...register("age", { required: true, maxLength: 120 })} type="number" id="age" name="age" placeholder="Type Here" />
         </div>
         <div className="grid gap-3 text-white">
           <Label htmlFor="username">Height (in Meter)</Label>
           <Input
+          {...register("height", { required: true, maxLength: 120 })}
             type="number"
             id="height"
             name="height"
@@ -179,7 +190,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
           <div className="text-white">
             <Label htmlFor="username">Gender</Label>
           </div>
-          <Select name="gender">
+          <Select  {...register("gender", { required: true, maxLength: 120 })} name="gender">
             <SelectTrigger className="w-[280px]">
               <SelectValue placeholder="Select Gender" />
             </SelectTrigger>
@@ -197,6 +208,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
             type="file"
           />
         </div>
+      
         <Button className="bg-my-gradient" type="submit">
           Submit
         </Button>

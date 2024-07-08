@@ -10,6 +10,8 @@ export const postData = async (formData: FormData) => {
   const age = formData.get("age") as string;
   const height = formData.get("height") as string;
   const gender = formData.get("gender") as string;
+  const image = formData.get("imageUrl") as string;
+  console.log(image)
 
   if (!name || !age || !height || !gender) {
     throw new Error("Please fill all fields");

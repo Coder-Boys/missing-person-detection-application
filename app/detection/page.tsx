@@ -4,6 +4,7 @@ import * as faceapi from "face-api.js";
 import Image1 from "../assets/myPhoto.jpeg";
 import Image2 from "../assets/myPhoto2.jpeg";
 import Image from "next/image";
+
 // type FaceDetection = faceapi.WithFaceDescriptor<
 //   faceapi.WithFaceLandmarks<{ detection: faceapi.FaceDetection }>
 // > | null;
@@ -98,12 +99,17 @@ import Image from "next/image";
 //   }
 // };
 
-// export default Detector;
 function App() {
+  const allImages = [
+    "https://images.pexels.com/photos/837358/pexels-photo-837358.jpeg",
+    // "https://images.pexels.com/photos/39866/entrepreneur-startup-start-up-man-39866.jpeg",
+    // "https://images.pexels.com/photos/445109/pexels-photo-445109.jpeg",
+  ];
+
+  allImages.forEach((image) => {});
   const idCardRef = useRef();
   const selfieRef = useRef();
   const isFirstRender = useRef(true);
-
   const renderFace = async (image, x, y, width, height) => {
     const canvas = document.createElement("canvas");
     canvas.width = width;
@@ -159,6 +165,7 @@ function App() {
           selfieFacedetection.descriptor
         );
         console.log(distance);
+        console.log(idCardRef.current);
       }
     })();
   }, []);
@@ -166,10 +173,22 @@ function App() {
   return (
     <>
       <div className="gallery">
-        <Image ref={idCardRef} src={Image1} alt="ID card" />
+        <Image
+          ref={idCardRef}
+          src={Image1}
+          alt="ID card"
+          height={100}
+          width={100}
+        />
       </div>
       <div className="gallery">
-        <Image ref={selfieRef} src={Image2} alt="Selfie" />
+        <Image
+          ref={selfieRef}
+          src={Image2}
+          alt="Selfie"
+          width={100}
+          height={100}
+        />
       </div>
     </>
   );

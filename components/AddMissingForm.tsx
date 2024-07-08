@@ -38,6 +38,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { postData } from "@/action/postData";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type Inputs = {
+  example: string;
+  exampleRequired: string;
+};
 
 export default function AddMissingForm() {
   const [open, setOpen] = React.useState(false);
@@ -115,8 +121,32 @@ export default function AddMissingForm() {
 }
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
-  const [imgUrl, setImgUrl] = useState("");
-  console.log(imgUrl);
+  const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+  const { register, handleSubmit, reset } = useForm();
+  const [image, setImage] = useState(" ");
+
+  console.log(img_hosting_token);
+
+  const onSubmit = (data: any) => {
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    console.log(data.image[0]);
+
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageResponse) => {
+        if (imageResponse.success) {
+          alert("successfully added");
+          setImage(imageResponse.data.display_url);
+        }
+      });
+  };
+  console.log(image);
+
   return (
     <div
       className="px-4 rounded-lg py-4"
@@ -124,6 +154,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
     >
       <form
         action={postData}
+        onSubmit={handleSubmit(onSubmit)}
         className={cn("grid items-start gap-4", className)}
       >
         <div className="grid gap-3 text-white">
@@ -159,7 +190,11 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="picture">Picture</Label>
-          <Input id="picture" type="file" />
+          <Input
+            {...register("image", { required: true, maxLength: 120 })}
+            id="picture"
+            type="file"
+          />
         </div>
         <Button className="bg-my-gradient" type="submit">
           Submit

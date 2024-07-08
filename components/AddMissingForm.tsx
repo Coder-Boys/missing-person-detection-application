@@ -141,7 +141,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       .then((imageResponse) => {
         if (imageResponse.success) {
           alert("successfully added");
-          setImage(imageResponse.data.display_url);
+          formData.append('imageUrl',imageResponse.data.display_url);
         }
       });
   };
@@ -153,8 +153,9 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       style={{ backgroundImage: `url(/bg2.avif)` }}
     >
       <form
-        action={postData}
+       
         onSubmit={handleSubmit(onSubmit)}
+        action={postData}
         className={cn("grid items-start gap-4", className)}
       >
         <div className="grid gap-3 text-white">

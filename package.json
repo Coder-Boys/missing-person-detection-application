@@ -19,6 +19,7 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
     "face-api.js": "^0.22.2",
     "lucide-react": "^0.383.0",

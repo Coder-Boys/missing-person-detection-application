@@ -3,6 +3,7 @@ import { getSession } from "@/lib/getSession";
 import MissingPerson from "@/lib/MissingPersonSchema";
 import connectMongoDB from "@/lib/mongodb";
 import { redirect } from "next/navigation";
+import { saveFile } from "./saveFile";
 
 export const postData = async (formData: FormData) => {
   const session = await getSession();
@@ -10,8 +11,9 @@ export const postData = async (formData: FormData) => {
   const age = formData.get("age") as string;
   const height = formData.get("height") as string;
   const gender = formData.get("gender") as string;
-  const image = formData.get("imageUrl") as string;
-  console.log(image)
+  const imageUrl = formData.get("image") as File;
+  const preset = "MissingPersonImage" as string;
+  const url = await saveFile(imageUrl, preset);
 
   if (!name || !age || !height || !gender) {
     throw new Error("Please fill all fields");
@@ -23,7 +25,14 @@ export const postData = async (formData: FormData) => {
 
   const userId = session?.user.id;
 
-  await MissingPerson.create({ name, age, gender, height, userId });
+  await MissingPerson.create({
+    name,
+    age,
+    gender,
+    height,
+    imageUrl: url,
+    userId,
+  });
   console.log(`Missing Person data created successfully 🥂`);
-  redirect("/feed");
+  redirect("/");
 };

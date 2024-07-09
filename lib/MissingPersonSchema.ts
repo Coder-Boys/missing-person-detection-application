@@ -8,8 +8,6 @@ const missingPersonSchema = new Schema(
     gender: { type: String, required: true },
     imageUrl: { type: String, require: true },
     userId: { type: String, required: false },
-
-    // photo: { type: String, required: true },
   },
   { timestamps: true }
 );

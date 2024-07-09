@@ -1,9 +1,6 @@
 "use client";
 import * as React from "react";
-import { useState } from "react";
-// interface ImageUrl {
-//   url: string;
-// }
+
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
@@ -12,7 +9,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
@@ -23,7 +19,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,14 +26,11 @@ import { IoMdAdd } from "react-icons/io";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { postData } from "@/action/postData";
-import { SubmitHandler, useForm } from "react-hook-form";
 
 type Inputs = {
   example: string;
@@ -121,40 +113,12 @@ export default function AddMissingForm() {
 }
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
-  const img_hosting_token = process.env.NEXT_PUBLIC_IMAGE_UPLOAD_TOKEN;
-  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
-  const { register, handleSubmit, reset } = useForm();
-  const [image, setImage] = useState(" ");
-
-  console.log(img_hosting_token);
-
-  const onSubmit = (data: any) => {
-    const formData = new FormData();
-    formData.append("image", data.image[0]);
-    console.log(data.image[0]);
-
-    fetch(img_hosting_url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((imageResponse) => {
-        if (imageResponse.success) {
-          alert("successfully added");
-          formData.append('imageUrl',imageResponse.data.display_url);
-        }
-      });
-  };
-  console.log(image);
-
   return (
     <div
       className="px-4 rounded-lg py-4"
       style={{ backgroundImage: `url(/bg2.avif)` }}
     >
       <form
-       
-        onSubmit={handleSubmit(onSubmit)}
         action={postData}
         className={cn("grid items-start gap-4", className)}
       >
@@ -190,11 +154,13 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
           </Select>
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="picture">Picture</Label>
+          <Label htmlFor="image">Picture</Label>
           <Input
-            {...register("image", { required: true, maxLength: 120 })}
-            id="picture"
             type="file"
+            id="image"
+            name="image"
+            className="peer block w-full rounded-md border border-gray-200 py-2 pl-2 text-sm outline-2 placeholder:text-gray-500"
+            required
           />
         </div>
         <Button className="bg-my-gradient" type="submit">

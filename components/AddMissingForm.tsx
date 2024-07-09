@@ -32,11 +32,6 @@ import {
 } from "@/components/ui/select";
 import { postData } from "@/action/postData";
 
-type Inputs = {
-  example: string;
-  exampleRequired: string;
-};
-
 export default function AddMissingForm() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -113,10 +108,6 @@ export default function AddMissingForm() {
 }
 
 function ProfileForm({ className }: React.ComponentProps<"form">) {
-
-
-  
-
   return (
     <div
       className="px-4 rounded-lg py-4"
@@ -128,16 +119,15 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
       >
         <div className="grid gap-3 text-white">
           <Label htmlFor="username">Name</Label>
-          <Input {...register("name", { required: true, maxLength: 120 })} type="text" id="name" name="name" placeholder="Type Here" />
+          <Input type="text" id="name" name="name" placeholder="Type Here" />
         </div>
         <div className="grid gap-3 text-white">
           <Label htmlFor="username">Age</Label>
-          <Input {...register("age", { required: true, maxLength: 120 })} type="number" id="age" name="age" placeholder="Type Here" />
+          <Input type="number" id="age" name="age" placeholder="Type Here" />
         </div>
         <div className="grid gap-3 text-white">
           <Label htmlFor="username">Height (in Meter)</Label>
           <Input
-          {...register("height", { required: true, maxLength: 120 })}
             type="number"
             id="height"
             name="height"
@@ -148,7 +138,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
           <div className="text-white">
             <Label htmlFor="username">Gender</Label>
           </div>
-          <Select  {...register("gender", { required: true, maxLength: 120 })} name="gender">
+          <Select name="gender">
             <SelectTrigger className="w-[280px]">
               <SelectValue placeholder="Select Gender" />
             </SelectTrigger>
@@ -168,7 +158,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
             required
           />
         </div>
-      
+
         <Button className="bg-my-gradient" type="submit">
           Submit
         </Button>

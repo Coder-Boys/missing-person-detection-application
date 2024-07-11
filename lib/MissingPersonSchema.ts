@@ -7,8 +7,9 @@ const missingPersonSchema = new Schema(
     location: { type: String, required: true },
     contact: { type: String, required: true },
 
-    imageUrl: { type: String, require: true },
+    imageUrl: { type: String, required: true },
     userId: { type: String, required: false },
+    missing: { type: String, default: true },
   },
   { timestamps: true }
 );

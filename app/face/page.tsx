@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import * as faceapi from "face-api.js";
 
 import MatchingImage from "next/image";
+
 interface FoundPersonInfo {
   _id: string;
   name: string;
@@ -28,6 +29,10 @@ const getImageData = async () => {
 };
 
 function App() {
+  const isFirstRender = useRef(true);
+  const [foundInfo, setFoundInfo] = useState<FoundPersonInfo>();
+  const [distance, setDistance] = useState(null);
+
   const loadImage = async (url: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -37,10 +42,7 @@ function App() {
       img.onerror = (err) => reject(err);
     });
   };
-  const [foundInfo, setFoundInfo] = useState<FoundPersonInfo>();
-  const [distance, setDistance] = useState(null);
   // const [chngImg, setChanginImg] = useState([]);
-  const isFirstRender = useRef(true);
 
   // const ChangingImg = useMemo(() => chngImg, [chngImg]);
   useEffect(() => {

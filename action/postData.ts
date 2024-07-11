@@ -9,13 +9,13 @@ export const postData = async (formData: FormData) => {
   const session = await getSession();
   const name = formData.get("name") as string;
   const age = formData.get("age") as string;
-  const height = formData.get("height") as string;
-  const gender = formData.get("gender") as string;
+  const location = formData.get("location") as string;
+  const contact = formData.get("contact") as string;
   const imageUrl = formData.get("image") as File;
   const preset = "MissingPersonImage" as string;
   const url = await saveFile(imageUrl, preset);
 
-  if (!name || !age || !height || !gender) {
+  if (!name || !age || !location || !contact) {
     throw new Error("Please fill all fields");
   }
 
@@ -28,8 +28,8 @@ export const postData = async (formData: FormData) => {
   await MissingPerson.create({
     name,
     age,
-    gender,
-    height,
+    contact,
+    location,
     imageUrl: url,
     userId,
   });

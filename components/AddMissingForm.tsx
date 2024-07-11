@@ -24,6 +24,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { IoMdAdd } from "react-icons/io";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 import {
   Select,
   SelectContent,
@@ -40,10 +42,11 @@ export default function AddMissingForm() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const session = useSession();
+  const data = session.data;
+  console.log(data);
 
-  const onSubmit = () => {
-    const status = session?.status;
-    if (status === "unauthenticated") {
+  const handleSubmit = () => {
+    if (!data) {
       router.push("/auth/signin");
     }
   };
@@ -57,11 +60,12 @@ export default function AddMissingForm() {
               asChild
             >
               <Button
-                onClick={onSubmit}
+                onClick={handleSubmit}
                 className="bg-my-gradient m-5 dark:text-black text-white "
                 variant="outline"
               >
-                <IoMdAdd size={20} /> Add Missing Person
+                <IoMdAdd size={20} />
+                Add Missing Person
               </Button>
             </DialogTrigger>
           </div>

@@ -2,8 +2,10 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import * as faceapi from "face-api.js";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
+import lottie from "../../components/lottieFiles/model1.json";
 
 import MatchingImage from "next/image";
+import LottieAnimation from "@/components/LottieAnimation";
 
 interface FoundfoundInfoInfo {
   _id: string;
@@ -31,6 +33,12 @@ const getImageData = async () => {
 };
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 20000);
+  }, []);
   const isFirstRender = useRef(true);
   const [foundInfo, setFoundInfo] = useState<FoundfoundInfoInfo>();
   const [distance, setDistance] = useState(null);
@@ -115,44 +123,53 @@ function App() {
 
   return (
     <>
-      {distance < 0.6 ? (
-        <div>
-          <p  className="my-5 ms-4 text-green-500 text-2xl font-bold flex gap-2">
-          <IoCheckmarkCircleOutline size={30} />Missing Person is Found {" "}
-        </p>
-        <p className="text-gray-400 text-2xl font-bold ms-7">Here is the person</p>
-        </div>
+      {loading ? (
+        <LottieAnimation animate={lottie} />
       ) : (
-        <p>Match not found</p>
-      )}
-      {foundInfo && (
         <div>
-          <div className="flex justify-center items-center mx-4">
-            <div
-              key={foundInfo._id}
-              className=" bg-gray-900 w-[800px] h-full rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
-            >
-              <figure className="px-10 pt-10 flex justify-center items-center">
-                <MatchingImage
-                  src={foundInfo.imageUrl}
-                  alt="Shoes"
-                  className="rounded-xl object-cover h-[400px] hover:scale-110 hover:duration-200 hover:ease-in-out"
-                  width={450}
-                  height={350}
-                />
-              </figure>
-              <div className="my-8 text-gray-400 mx-10 space-y-1">
-                <h2 className="font-bold text-4xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)] my-5">
-                  {foundInfo.name}
-                </h2>
+          {distance < 0.6 ? (
+            <div>
+              <p className="my-5 ms-4 text-green-500 text-2xl font-bold flex gap-2">
+                <IoCheckmarkCircleOutline size={30} />
+                Missing Person is Found{" "}
+              </p>
+              <p className="text-gray-400 text-2xl font-bold ms-7">
+                Here is the person
+              </p>
+            </div>
+          ) : (
+            <p>Match not found</p>
+          )}
+          {foundInfo && (
+            <div>
+              <div className="flex justify-center items-center mx-4">
+                <div
+                  key={foundInfo._id}
+                  className=" bg-gray-900 w-[800px] h-full rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
+                >
+                  <figure className="px-10 pt-10 flex justify-center items-center">
+                    <MatchingImage
+                      src={foundInfo.imageUrl}
+                      alt="Shoes"
+                      className="rounded-xl object-cover h-[400px] hover:scale-110 hover:duration-200 hover:ease-in-out"
+                      width={450}
+                      height={350}
+                    />
+                  </figure>
+                  <div className="my-8 text-gray-400 mx-10 space-y-1">
+                    <h2 className="font-bold text-4xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)] my-5">
+                      {foundInfo.name}
+                    </h2>
 
-                <h2 className="">Age: {foundInfo.age} years</h2>
-                <h2 className="">Location: {foundInfo.location}</h2>
-                <h2 className="">Contact Info: {foundInfo.contact}</h2>
-                <h2 className="">Details: {foundInfo.textarea}</h2>
+                    <h2 className="">Age: {foundInfo.age} years</h2>
+                    <h2 className="">Location: {foundInfo.location}</h2>
+                    <h2 className="">Contact Info: {foundInfo.contact}</h2>
+                    <h2 className="">Details: {foundInfo.textarea}</h2>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </>

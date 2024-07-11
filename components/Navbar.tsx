@@ -5,6 +5,15 @@ import { ModeToggle } from "./darkModeBtn";
 import { SearchInput } from "./SearchInput";
 import { signOut } from "@/auth";
 import { getSession } from "@/lib/getSession";
+import { CgProfile } from "react-icons/cg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default async function Navbar() {
   const session = await getSession();
@@ -33,7 +42,7 @@ export default async function Navbar() {
         >
           Home
         </Link>
-        <p className="text-green-500 font-bold">{user?.email}</p>
+        
         <Link
           href="/feed"
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
@@ -62,6 +71,7 @@ export default async function Navbar() {
         >
           Contact
         </Link>
+       
         {!user ? (
           <>
             <Link
@@ -74,33 +84,48 @@ export default async function Navbar() {
           </>
         ) : (
           <>
-            <form
-              action={async () => {
-                "use server";
-                await signOut();
-              }}
-            >
-              <Button variant={"outline"} type="submit">
-                Sign Out
-              </Button>
-            </form>
-            <Link
-              href="/dashboard"
-              className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
-              prefetch={false}
-            >
-              Dashboard
-            </Link>
-            {user?.role === "admin" && (
-              <Link
-                href="/private/settings"
-                className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
-                prefetch={false}
-              >
-                Settings
-              </Link>
-            )}
-          </>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              {" "}
+              <CgProfile
+                className=" font-medium tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)]"
+                size={30}
+                color="violet"
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                {user?.role === "admin" && (
+                  <Link
+                    href="/private/settings"
+                    className=""
+                    prefetch={false}
+                  >
+                    Admin
+                  </Link>
+                )}
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                >
+                  <Button variant={"outline"} type="submit">
+                    Sign Out
+                  </Button>
+                </form>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
         )}
 
         <ModeToggle />
@@ -150,13 +175,61 @@ export default async function Navbar() {
             >
               Contact
             </Link>
-            <Link
-              href="/auth/signin"
-              className="bg-my-gradient inline-flex h-10 items-center justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              prefetch={false}
-            >
-              Login
-            </Link>
+            {!user ? (
+              <>
+                <Link
+                  href="/auth/signin"
+                  className="bg-my-gradient inline-flex h-9 items-center w-16 justify-center rounded-md bg-gray-900 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+                  prefetch={false}
+                >
+                  Login
+                </Link>
+              </>
+            ) : (
+              <>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    {" "}
+                    <CgProfile
+                      className=" font-medium tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)]"
+                      size={30}
+                      color="violet"
+                    />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {" "}
+                      {user?.role === "admin" && (
+                        <Link
+                          href="/private/settings"
+                          className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+                          prefetch={false}
+                        >
+                          Admin
+                        </Link>
+                      )}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {" "}
+                      <form
+                        action={async () => {
+                          "use server";
+                          await signOut();
+                        }}
+                      >
+                        <Button variant={"outline"} type="submit">
+                          Sign Out
+                        </Button>
+                      </form>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
+            )}
             <ModeToggle />
           </nav>
         </SheetContent>

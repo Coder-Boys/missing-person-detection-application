@@ -8,7 +8,7 @@ const Card = ({person}) => {
         <div>
               <div
             key={person}
-            className="card bg-gray-900 w-96 rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
+            className="text-gray-400 bg-gray-900 w-96 rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
           >
             <figure className="px-10 pt-10">
               <Image
@@ -20,8 +20,8 @@ const Card = ({person}) => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="font-bold my-4">{person.name}</h2>
-              <Link href={`/details/${person._id}`}><Button className="bg-my-gradient my-3">Details</Button></Link>
+              <h2 className="font-bold my-3">{person.name}</h2>
+              <Link href={`/details/${person._id}`}><Button className="bg-my-gradient mb-4">Details</Button></Link>
             </div>
 
           </div>

@@ -4,7 +4,7 @@ import * as faceapi from "face-api.js";
 
 import MatchingImage from "next/image";
 
-interface FoundPersonInfo {
+interface FoundfoundInfoInfo {
   _id: string;
   name: string;
   age: string;
@@ -12,6 +12,7 @@ interface FoundPersonInfo {
   imageUrl: string;
   gender: string;
   textarea: string;
+  contact: string
 }
 const getImageData = async () => {
   try {
@@ -30,7 +31,7 @@ const getImageData = async () => {
 
 function App() {
   const isFirstRender = useRef(true);
-  const [foundInfo, setFoundInfo] = useState<FoundPersonInfo>();
+  const [foundInfo, setFoundInfo] = useState<FoundfoundInfoInfo>();
   const [distance, setDistance] = useState(null);
 
   const loadImage = async (url: string): Promise<HTMLImageElement> => {
@@ -116,28 +117,32 @@ function App() {
       {distance < 0.6 ? <p>Match Found, Here it is</p> : <p>Match not found</p>}
       {foundInfo && (
         <div>
-          <div
-            key={foundInfo._id}
-            className="card bg-gray-900 w-[650px] shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
-          >
-            <div className="flex gap-4">
-              <figure className="px-10 pt-10">
-                <MatchingImage
-                  src={foundInfo.imageUrl}
-                  alt="Shoes"
-                  className="rounded-xl object-cover h-[300px] hover:scale-110 hover:duration-200 hover:ease-in-out"
-                  width={450}
-                  height={350}
-                />
-              </figure>
-              <div className="card-body items-center text-center">
-                <h2 className="card-title">Name: {foundInfo.name} </h2>
-                <p>Age: {foundInfo.age} </p>
-                {/* <p>Location:{foundInfo.location} </p> */}
-                <p>Gender: {foundInfo.gender} </p>
-              </div>
-            </div>
-          </div>
+           <div className="flex justify-center items-center mx-4">
+      <div
+        key={foundInfo._id}
+        className=" bg-gray-900 w-[800px] h-full rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
+      >
+        <figure className="px-10 pt-10 flex justify-center items-center">
+          <MatchingImage
+            src={foundInfo.imageUrl}
+            alt="Shoes"
+            className="rounded-xl object-cover h-[400px] hover:scale-110 hover:duration-200 hover:ease-in-out"
+            width={450}
+            height={350}
+          />
+        </figure>
+        <div className="my-8 text-gray-400 mx-10 space-y-1">
+          <h2 className="font-bold text-4xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)] my-5">
+            {foundInfo.name}
+          </h2>
+
+          <h2 className="">Age: {foundInfo.age} years</h2>
+          <h2 className="">Location: {foundInfo.location}</h2>
+          <h2 className="">Contact Info: {foundInfo.contact}</h2>
+          <h2 className="">Details: {foundInfo.textarea}</h2>
+        </div>
+      </div>
+    </div>
         </div>
       )}
     </>

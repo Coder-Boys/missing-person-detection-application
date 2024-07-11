@@ -56,7 +56,10 @@ export default function AddMissingForm() {
           </div>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
+
               <DrawerTitle className="text-center mb-2 text-2xl">
+
+
                 Details About Missing Person
               </DrawerTitle>
               <DialogDescription>
@@ -157,8 +160,10 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
               <SelectItem value="female">Female</SelectItem>
             </SelectContent>
           </Select>
+
         </div> */}
         <div className="grid w-full max-w-sm items-center gap-1.5">
+
           <Label htmlFor="image">Picture</Label>
           <Input
             type="file"

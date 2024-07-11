@@ -32,11 +32,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { postData } from "@/action/postData";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function AddMissingForm() {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const session = useSession();
 
+  const onSubmit = () => {
+    const status = session?.status;
+    if (status === "unauthenticated") {
+      router.push("/auth/signin");
+    }
+  };
   if (isDesktop) {
     return (
       <div>
@@ -47,6 +57,7 @@ export default function AddMissingForm() {
               asChild
             >
               <Button
+                onClick={onSubmit}
                 className="bg-my-gradient m-5 dark:text-black text-white "
                 variant="outline"
               >
@@ -56,10 +67,7 @@ export default function AddMissingForm() {
           </div>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-
               <DrawerTitle className="text-center mb-2 text-2xl">
-
-
                 Details About Missing Person
               </DrawerTitle>
               <DialogDescription>
@@ -163,7 +171,6 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
 
         </div> */}
         <div className="grid w-full max-w-sm items-center gap-1.5">
-
           <Label htmlFor="image">Picture</Label>
           <Input
             type="file"

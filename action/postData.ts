@@ -11,6 +11,7 @@ export const postData = async (formData: FormData) => {
   const age = formData.get("age") as string;
   const location = formData.get("location") as string;
   const contact = formData.get("contact") as string;
+  const textarea = formData.get("textarea") as string;
   const imageUrl = formData.get("image") as File;
   const preset = "MissingPersonImage" as string;
   const url = await saveFile(imageUrl, preset);
@@ -32,6 +33,7 @@ export const postData = async (formData: FormData) => {
     location,
     imageUrl: url,
     userId,
+    textarea,
   });
   console.log(`Missing Person data created successfully 🥂`);
   redirect("/");

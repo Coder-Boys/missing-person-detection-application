@@ -32,9 +32,10 @@ export const postData = async (formData: FormData) => {
     contact,
     location,
     imageUrl: url,
+    textarea: textarea,
     userId,
-    textarea,
   });
   console.log(`Missing Person data created successfully 🥂`);
+
   redirect("/");
 };

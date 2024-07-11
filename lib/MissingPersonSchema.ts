@@ -6,10 +6,10 @@ const missingPersonSchema = new Schema(
     age: { type: String, required: false },
     location: { type: String, required: true },
     contact: { type: String, required: true },
-
     imageUrl: { type: String, required: true },
     userId: { type: String, required: false },
     missing: { type: String, default: true },
+    textarea: { type: String, required: false },
   },
   { timestamps: true }
 );

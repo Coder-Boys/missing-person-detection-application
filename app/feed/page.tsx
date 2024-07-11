@@ -6,14 +6,17 @@ import React from "react";
 
 const Feed = async () => {
   await connectMongoDB();
+
   const persons = await MissingPerson.find({});
   // const persons = await MissingPerson.find({missing:true});
   // const persons = await MissingPerson.find({missing:false});
+
   return (
     <div className="">
       <AddMissingForm />
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5">
+
         {persons.map((person) => (
           <div
             key={person}
@@ -34,6 +37,7 @@ const Feed = async () => {
               <p>Height: </p>
               <p>Gender: </p>
             </div>
+
           </div>
         ))}
       </div>

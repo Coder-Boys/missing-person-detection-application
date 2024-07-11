@@ -1,4 +1,5 @@
 import AddMissingForm from "@/components/AddMissingForm";
+import { Button } from "@/components/ui/button";
 import MissingPerson from "@/lib/MissingPersonSchema";
 import connectMongoDB from "@/lib/mongodb";
 import Image from "next/image";
@@ -20,7 +21,7 @@ const Feed = async () => {
         {persons.map((person) => (
           <div
             key={person}
-            className="card bg-gray-900 w-96 shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
+            className="card bg-gray-900 w-96 rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
           >
             <figure className="px-10 pt-10">
               <Image
@@ -31,11 +32,9 @@ const Feed = async () => {
                 height={350}
               />
             </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">Name: </h2>
-              <p>Age: </p>
-              <p>Height: </p>
-              <p>Gender: </p>
+            <div className="card-body items-center text-center my-5">
+              <h2 className="font-bold my-4">Name: {person.name}</h2>
+              <Button className="bg-my-gradient">Details</Button>
             </div>
 
           </div>

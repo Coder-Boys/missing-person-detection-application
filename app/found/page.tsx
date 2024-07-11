@@ -131,14 +131,14 @@ function App() {
             <div>
               <p className="my-5 ms-4 text-green-500 text-2xl font-bold flex gap-2">
                 <IoCheckmarkCircleOutline size={30} />
-                Missing Person is Found{" "}
+                Missing Person has Found{" "}
               </p>
               <p className="text-gray-400 text-2xl font-bold ms-7">
                 Here is the person
               </p>
             </div>
           ) : (
-            <p className="text-red-500 font-bold text-2xl flex gap-2 my-5 ms-4"><RxCross1 size={30} /> Missing Person Does Not Found</p>
+            <p className="text-red-500 font-bold text-2xl flex gap-2 my-5 ms-4"><RxCross1 size={30} /> Missing Person has not Found</p>
           )}
           {foundInfo && (
             <div>

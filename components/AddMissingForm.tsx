@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { IoMdAdd } from "react-icons/io";
 import {
   Select,
@@ -55,7 +56,10 @@ export default function AddMissingForm() {
           </div>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DrawerTitle className="text-center mb-3 text-2xl">
+
+              <DrawerTitle className="text-center mb-2 text-2xl">
+
+
                 Details About Missing Person
               </DrawerTitle>
               <DialogDescription>
@@ -110,31 +114,40 @@ export default function AddMissingForm() {
 function ProfileForm({ className }: React.ComponentProps<"form">) {
   return (
     <div
-      className="px-4 rounded-lg py-4"
+      className="px-6 rounded-lg py-2"
       style={{ backgroundImage: `url(/bg2.avif)` }}
     >
       <form
         action={postData}
-        className={cn("grid items-start gap-4", className)}
+        className={cn("grid items-start gap-1", className)}
       >
-        <div className="grid gap-3 text-white">
+        <div className="grid gap-1 text-white">
           <Label htmlFor="username">Name</Label>
           <Input type="text" id="name" name="name" placeholder="Type Here" />
         </div>
-        <div className="grid gap-3 text-white">
+        <div className="grid gap-1 text-white">
           <Label htmlFor="username">Age</Label>
           <Input type="number" id="age" name="age" placeholder="Type Here" />
         </div>
-        <div className="grid gap-3 text-white">
-          <Label htmlFor="username">Height (in Meter)</Label>
+        <div className="grid gap-1 text-white">
+          <Label htmlFor="location">Location</Label>
           <Input
-            type="number"
-            id="height"
-            name="height"
+            type="text"
+            id="location"
+            name="location"
             placeholder="Type Here"
           />
         </div>
-        <div className="grid gap-3">
+        <div className="grid gap-1 text-white">
+          <Label htmlFor="contact">Contact</Label>
+          <Input
+            type="text"
+            id="contact"
+            name="contact"
+            placeholder="Type Here"
+          />
+        </div>
+        {/* <div className="grid gap-1">
           <div className="text-white">
             <Label htmlFor="username">Gender</Label>
           </div>
@@ -147,8 +160,10 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
               <SelectItem value="female">Female</SelectItem>
             </SelectContent>
           </Select>
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-3.5">
+
+        </div> */}
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+
           <Label htmlFor="image">Picture</Label>
           <Input
             type="file"
@@ -158,6 +173,11 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
             required
           />
         </div>
+        <Textarea
+          name="textarea"
+          className="my-1"
+          placeholder="Type necessary info about the missin person."
+        />
 
         <Button className="bg-my-gradient" type="submit">
           Submit

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import * as faceapi from "face-api.js";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import lottie from "../../components/lottieFiles/model1.json";
-
+import { RxCross1 } from "react-icons/rx";
 import MatchingImage from "next/image";
 import LottieAnimation from "@/components/LottieAnimation";
 
@@ -124,7 +124,7 @@ function App() {
   return (
     <>
       {loading ? (
-        <LottieAnimation animate={lottie} />
+       <div className="w-full flex justify-center items-center min-h-screen"> <LottieAnimation animate={lottie} /></div>
       ) : (
         <div>
           {distance < 0.6 ? (
@@ -138,7 +138,7 @@ function App() {
               </p>
             </div>
           ) : (
-            <p>Match not found</p>
+            <p className="text-red-500 font-bold text-2xl flex gap-2 my-5 ms-4"><RxCross1 size={30} /> Missing Person Does Not Found</p>
           )}
           {foundInfo && (
             <div>

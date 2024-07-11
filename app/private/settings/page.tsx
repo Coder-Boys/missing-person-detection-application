@@ -18,7 +18,7 @@ const Settings = async () => {
       <h1 className="text-xl font-bold mb-4">users</h1>
       <table className="w-full rounded shadow">
         <thead>
-          <tr className="bg-gray-100 text-left">
+          <tr className=" text-violet-500 text-left">
             <th className="p-2">First Name</th>
             <th className="p-2">Last Name</th>
             <th className="p-2">Action</th>

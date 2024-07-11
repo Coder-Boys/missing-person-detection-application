@@ -1,5 +1,29 @@
+import connectMongoDB from "@/lib/mongodb";
+import MissingPerson from "@/lib/MissingPersonSchema";
+import { NextRequest, NextResponse } from "next/server";
+import { getSession } from "@/lib/getSession";
 
+export async function GET(req) {
+  try {
+    const session = await getSession();
+    const userId = session?.user?.id;
+    await connectMongoDB();
 
-export const POST = () => {
-    
+    // if (!image1) {
+    //   return NextResponse.json({ message: "No image found for user" });
+    // }
+
+    const image1 = await MissingPerson.findOne({ userId: userId });
+    const arrImg = await MissingPerson.aggregate([
+      { $match: { userId: { $ne: userId } } },
+      // { $project: { imageUrl: 1, _id: 0 } },
+    ]);
+
+    return NextResponse.json({ image1, arrImg }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Api call e error", error },
+      { status: 500 }
+    );
+  }
 }

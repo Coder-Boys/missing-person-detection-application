@@ -1,11 +1,13 @@
-import { getSession } from "@/lib/getSession";
+"use client";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-const Dashboard = async () => {
-  const session = await getSession();
-  const user = session?.user;
-  if (!user) return redirect("/");
-  return <div>Dashboard</div>;
+const Dashboard = () => {
+  const session = useSession();
+
+  console.log(session);
+  // if (!user) return redirect("/");
+  return <div>Dashboard : {session?.data?.user?.id}</div>;
 };
 
 export default Dashboard;

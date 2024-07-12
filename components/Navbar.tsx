@@ -18,7 +18,7 @@ import {
 export default async function Navbar() {
   const session = await getSession();
   const user = session?.user;
-  console.log(user);
+  console.log("ami eta", user);
   return (
     <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link

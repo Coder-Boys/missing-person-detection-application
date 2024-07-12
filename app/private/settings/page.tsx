@@ -1,4 +1,5 @@
 import { fetchAllUsers } from "@/action/user";
+import ButtonX from "@/components/ButtonX";
 import { getSession } from "@/lib/getSession";
 import User from "@/lib/schema";
 
@@ -15,7 +16,7 @@ const Settings = async () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">users</h1>
+      <h1 className="text-xl font-bold mb-4">User List</h1>
       <table className="w-full rounded shadow">
         <thead>
           <tr className=" text-violet-500 text-left">
@@ -37,9 +38,7 @@ const Settings = async () => {
                     await User.findByIdAndDelete(user._id);
                   }}
                 >
-                  <button className="px-2 py-1 text-red-500 hover:bg-red-100 rounded focus:outline-none">
-                    Delete
-                  </button>
+                  <ButtonX>Delete</ButtonX>
                 </form>
               </td>
             </tr>

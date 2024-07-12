@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import * as faceapi from "face-api.js";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import lottie from "../../components/lottieFiles/model1.json";
+import lottie2 from "../../components/lottieFiles/not-found.json";
 import { RxCross1 } from "react-icons/rx";
 import MatchingImage from "next/image";
 import LottieAnimation from "@/components/LottieAnimation";
@@ -131,14 +132,17 @@ function App() {
             <div>
               <p className="my-5 ms-4 text-green-500 text-2xl font-bold flex gap-2">
                 <IoCheckmarkCircleOutline size={30} />
-                Missing Person has been Found{" "}
+                Missing Person has been found{" "}
               </p>
               <p className="text-gray-400 text-2xl font-bold ms-7">
                 Here is the person
               </p>
             </div>
           ) : (
-            <p className="text-red-500 font-bold text-2xl flex gap-2 my-5 ms-4"><RxCross1 size={30} /> Missing Person has not been Found</p>
+           <div className="flex flex-col items-center min-h-screen justify-center">
+            <LottieAnimation animate={lottie2}/>
+             <p className="text-red-600 font-mono font-bold text-5xl flex gap-2 my-5 ms-4"><RxCross1 size={40} /> Missing Person has not been found</p>
+           </div>
           )}
           {foundInfo && (
             <div>

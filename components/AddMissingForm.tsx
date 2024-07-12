@@ -24,15 +24,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { IoMdAdd } from "react-icons/io";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { postData } from "@/action/postData";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -43,7 +34,7 @@ export default function AddMissingForm() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const session = useSession();
   const data = session.data;
-  console.log(data);
+
 
   const handleSubmit = () => {
     if (!data) {

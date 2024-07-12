@@ -26,7 +26,7 @@ export default async function Navbar() {
         className="flex items-center justify-center gap-2"
         prefetch={false}
       >
-        <MountainIcon className="h-6 w-6 text-violet-500" />
+        <MountainIcon className="h-6 w-6 text-violet-600" />
         <span className="text-lg font-semibold">FINDER</span>
       </Link>
       <nav>
@@ -37,7 +37,7 @@ export default async function Navbar() {
       <nav className="hidden justify-center items-center md:flex space-x-6 font-semibold text-sm uppercase">
         <Link
           href="/"
-          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+          className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Home
@@ -45,14 +45,14 @@ export default async function Navbar() {
 
         <Link
           href="/feed"
-          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+            className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Feed
         </Link>
         <Link
           href="/missing"
-          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+            className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Missing
@@ -61,7 +61,7 @@ export default async function Navbar() {
           (user?.role === "admin" && (
             <Link
               href="/found"
-              className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+                className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Found
@@ -69,7 +69,7 @@ export default async function Navbar() {
           ))}
         <Link
           href="/contact"
-          className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+         className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Contact
@@ -88,20 +88,17 @@ export default async function Navbar() {
         ) : (
           <>
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger className="">
                 {" "}
                 <CgProfile
-                  className=" font-medium tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)]"
+                  className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
                   size={30}
-                  color="violet"
+                 
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel> <span className="text-violet-600">{user?.email}</span></DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-blue-600">
-                  {user?.name}
-                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/post">Edit post</Link>
                 </DropdownMenuItem>
@@ -125,7 +122,7 @@ export default async function Navbar() {
                       await signOut();
                     }}
                   >
-                    <Button variant={"outline"} type="submit">
+                    <Button className="bg-my-gradient" variant={"outline"} type="submit">
                       Sign Out
                     </Button>
                   </form>
@@ -149,21 +146,21 @@ export default async function Navbar() {
           <nav className="grid w-[200px] p-4 space-y-4 text-sm uppercase ">
             <Link
               href="/"
-              className="font-medium hover:text-violet-500"
+              className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Home
             </Link>
             <Link
               href="/feed"
-              className="font-medium hover:text-violet-500"
+               className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Feed
             </Link>
             <Link
               href="/missing"
-              className="font-medium hover:text-violet-500"
+               className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Missing
@@ -172,7 +169,7 @@ export default async function Navbar() {
               (user?.role === "admin" && (
                 <Link
                   href="/found"
-                  className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+                    className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
                   prefetch={false}
                 >
                   Found
@@ -180,7 +177,7 @@ export default async function Navbar() {
               ))}
             <Link
               href="/contact"
-              className="font-medium hover:text-violet-500"
+              className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Contact
@@ -201,15 +198,15 @@ export default async function Navbar() {
                   <DropdownMenuTrigger>
                     {" "}
                     <CgProfile
-                      className=" font-medium tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)]"
+                      className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
                       size={30}
-                      color="violet"
+                     
                     />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuLabel> <span className="text-violet-600">{user?.email}</span></DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>{user?.name}</DropdownMenuItem>
+                   
                     <DropdownMenuItem>
                       <Link href="/post">Edit post</Link>
                     </DropdownMenuItem>
@@ -218,7 +215,7 @@ export default async function Navbar() {
                       {user?.role === "admin" && (
                         <Link
                           href="/private/settings"
-                          className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+                          className=""
                           prefetch={false}
                         >
                           Admin
@@ -233,7 +230,7 @@ export default async function Navbar() {
                           await signOut();
                         }}
                       >
-                        <Button variant={"outline"} type="submit">
+                        <Button className="bg-my-gradient" variant={"outline"} type="submit">
                           Sign Out
                         </Button>
                       </form>

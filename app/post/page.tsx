@@ -13,7 +13,7 @@ const Post = async () => {
   const persons = await MissingPerson.find({ userId: id });
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 place-content-center">
       {persons.map((person) => (
         <div
           key={person._id}

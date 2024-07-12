@@ -23,7 +23,7 @@ export default function Hero() {
             </span>
             Identify and{" "}
             <span className="dark:text-gray-300 text-gray-600">
-              s <br />
+              Reunite the <br />
             </span>
             {text}
            <Cursor cursorColor="violet"/>

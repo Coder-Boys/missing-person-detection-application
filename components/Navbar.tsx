@@ -42,7 +42,7 @@ export default async function Navbar() {
         >
           Home
         </Link>
-        
+
         <Link
           href="/feed"
           className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
@@ -57,13 +57,16 @@ export default async function Navbar() {
         >
           Missing
         </Link>
-        <Link
-          href="/found"
-          className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
-          prefetch={false}
-        >
-          Found
-        </Link>
+        {user?.role === "user" ||
+          (user?.role === "admin" && (
+            <Link
+              href="/found"
+              className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+              prefetch={false}
+            >
+              Found
+            </Link>
+          ))}
         <Link
           href="/contact"
           className=" font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
@@ -71,7 +74,7 @@ export default async function Navbar() {
         >
           Contact
         </Link>
-       
+
         {!user ? (
           <>
             <Link
@@ -84,48 +87,52 @@ export default async function Navbar() {
           </>
         ) : (
           <>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              {" "}
-              <CgProfile
-                className=" font-medium tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)]"
-                size={30}
-                color="violet"
-              />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
                 {" "}
-                {user?.role === "admin" && (
-                  <Link
-                    href="/private/settings"
-                    className=""
-                    prefetch={false}
+                <CgProfile
+                  className=" font-medium tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)]"
+                  size={30}
+                  color="violet"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-blue-600">
+                  {user?.name}
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/post">Edit post</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  {" "}
+                  {user?.role === "admin" && (
+                    <Link
+                      href="/private/settings"
+                      className=""
+                      prefetch={false}
+                    >
+                      Admin
+                    </Link>
+                  )}
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  {" "}
+                  <form
+                    action={async () => {
+                      "use server";
+                      await signOut();
+                    }}
                   >
-                    Admin
-                  </Link>
-                )}
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                {" "}
-                <form
-                  action={async () => {
-                    "use server";
-                    await signOut();
-                  }}
-                >
-                  <Button variant={"outline"} type="submit">
-                    Sign Out
-                  </Button>
-                </form>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </>
+                    <Button variant={"outline"} type="submit">
+                      Sign Out
+                    </Button>
+                  </form>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </>
         )}
 
         <ModeToggle />
@@ -161,13 +168,16 @@ export default async function Navbar() {
             >
               Missing
             </Link>
-            <Link
-              href="/found"
-              className="font-medium hover:text-violet-500"
-              prefetch={false}
-            >
-              Found
-            </Link>
+            {user?.role === "user" ||
+              (user?.role === "admin" && (
+                <Link
+                  href="/found"
+                  className="font-medium hover:border-b-4 hover:border-violet-500 hover:text-violet-500"
+                  prefetch={false}
+                >
+                  Found
+                </Link>
+              ))}
             <Link
               href="/contact"
               className="font-medium hover:text-violet-500"
@@ -199,8 +209,10 @@ export default async function Navbar() {
                   <DropdownMenuContent>
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Billing</DropdownMenuItem>
+                    <DropdownMenuItem>{user?.name}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/post">Edit post</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>
                       {" "}
                       {user?.role === "admin" && (

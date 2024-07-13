@@ -32,7 +32,7 @@ const Post = async () => {
           <div className="card-body items-center text-center">
             <h2 className="font-bold my-3">{person.name}</h2>
           </div>{" "}
-          <div className="flex justify-between mx-4">
+          <div className="flex justify-between mx-4 my-3">
             <Link href={`/details/${person._id}`}>
               <Button className="bg-my-gradient ">Details</Button>
             </Link>

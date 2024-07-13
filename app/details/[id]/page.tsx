@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import MissingPerson from "@/lib/MissingPersonSchema";
@@ -43,7 +44,9 @@ const Details = async ({ params }) => {
           >
             {" "}
             <span className="text-gray-400">Status:</span>{" "}
-            {person.missing === "true" ? "Missing" : "Found"}
+           <Badge className={`${
+                  person.missing === "false" ? "bg-green-400" : "bg-red-400"
+                }`}> {person.missing === "true" ? "Missing" : "Found"}</Badge>
           </h1>
           <h2 className="">Details: {person.textarea}</h2>
         </div>

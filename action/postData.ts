@@ -37,5 +37,5 @@ export const postData = async (formData: FormData) => {
   });
   console.log(`Missing Person data created successfully 🥂`);
 
-  redirect("/");
+  redirect("/feed");
 };

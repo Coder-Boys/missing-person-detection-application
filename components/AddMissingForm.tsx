@@ -27,19 +27,25 @@ import { IoMdAdd } from "react-icons/io";
 import { postData } from "@/action/postData";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import MissingPerson from "@/lib/MissingPersonSchema";
 
 export default function AddMissingForm() {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const session = useSession();
+  console.log(session);
   const data = session.data;
+  // const id = data.user.id;
 
-
-  const handleSubmit = () => {
-    if (!data) {
-      router.push("/auth/signin");
-    }
+  const handleSubmit = async () => {
+    // const post = await MissingPerson.find({ userId: id });
+    // if (post.length === 1) {
+    //   alert("You can add one missing person right now");
+    // }
+    // if (!data) {
+    //   router.push("/auth/signin");
+    // }
   };
   if (isDesktop) {
     return (
@@ -85,6 +91,7 @@ export default function AddMissingForm() {
           asChild
         >
           <Button
+            onClick={handleSubmit}
             className="bg-my-gradient m-5 dark:text-black text-white "
             variant="outline"
           >

@@ -1,3 +1,4 @@
+import ButtonX from "@/components/ButtonX";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/getSession";
 import MissingPerson from "@/lib/MissingPersonSchema";
@@ -41,9 +42,7 @@ const Post = async () => {
                 await MissingPerson.findByIdAndDelete(person._id);
               }}
             >
-              <Button className=" mb-4 bg-red-500 hover:bg-red-600 text-gray-300 rounded focus:outline-none">
-                Delete
-              </Button>
+              <ButtonX>Delete</ButtonX>
             </form>
           </div>
         </div>

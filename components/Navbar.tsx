@@ -6,7 +6,7 @@ import { SearchInput } from "./SearchInput";
 import { signOut } from "@/auth";
 import { getSession } from "@/lib/getSession";
 import { CgProfile } from "react-icons/cg";
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/badge";
 
 import {
   DropdownMenu,
@@ -22,11 +22,12 @@ import MissingPerson from "@/lib/MissingPersonSchema";
 export default async function Navbar() {
   const session = await getSession();
   const user = session?.user;
+
   const id = session?.user?.id;
   // console.log("ami eta", user);
- 
+
   const persons = await MissingPerson.find({ userId: id });
-  console.log(persons)
+  // console.log(persons);
   return (
     <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link
@@ -65,16 +66,16 @@ export default async function Navbar() {
         >
           Missing
         </Link>
-        {user?.role === "user" ||
-          (user?.role === "admin" && persons.length !== 0 && (
-            <Link
-              href="/found"
-              className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
-              prefetch={false}
-            >
-             <Badge className="bg-green-400">Found</Badge>
-            </Link>
-          ))}
+        {user &&
+              persons.length !== 0 &&
+                <Link
+                  href="/found"
+                  className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
+                  prefetch={false}
+                >
+                  <Badge className="bg-green-400">Found</Badge>
+                </Link>
+              }
         <Link
           href="/contact"
           className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
@@ -179,16 +180,17 @@ export default async function Navbar() {
             >
               Missing
             </Link>
-            {user?.role === "user" ||
-              (user?.role === "admin" && persons.length !== null && (
+            {user &&
+              persons.length !== 0 &&
                 <Link
                   href="/found"
                   className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
                   prefetch={false}
                 >
-              <Badge className="bg-green-400">Found</Badge>
+                  <Badge className="bg-green-400">Found</Badge>
                 </Link>
-              ))}
+              }
+
             <Link
               href="/contact"
               className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"

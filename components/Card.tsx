@@ -22,7 +22,7 @@ const Card = ({ person }) => {
           />
         </figure>
         <div className=" mx-3 items-center text-center">
-          <div className="flex justify-between my-3 mx-3">
+          <div className="flex justify-between my-3 mx-5 px-5">
             <h2 className="font-bold">{person.name}</h2>
             <h1>
               <Badge

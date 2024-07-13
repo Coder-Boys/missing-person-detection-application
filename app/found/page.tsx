@@ -20,6 +20,43 @@ interface FoundfoundInfoInfo {
   contact: string;
 }
 
+
+
+const editMissingInfo = async (id) => {
+  try {
+    console.log(id);
+    const res = await fetch(
+      `http://localhost:3000/api/missingPeopleRoute/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ missing: "false" }),
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+const editPersonInfo = async (id) => {
+  try {
+    console.log(id);
+    const res = await fetch(
+      `http://localhost:3000/api/missingPeopleRoute/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ missing: "false" }),
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getImageData = async () => {
   try {
     const res = await fetch(`http://localhost:3000/api/missingPeopleRoute/`, {
@@ -73,17 +110,17 @@ function App() {
       // setChanginImg(allImages);
 
       const myImage = image1.imageUrl;
-      // console.log(myImage, allImages);
+
       const mainImg1 = await loadImage(myImage);
 
       console.log("compare detecting", mainImg1);
 
-      const idCardFaceDetection = await faceapi
+      const sourceImages = await faceapi
         .detectSingleFace(mainImg1, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withFaceDescriptor();
 
-      if (!idCardFaceDetection) {
+      if (!sourceImages) {
         console.error("No face detected in ID card image");
         return;
       }
@@ -94,22 +131,27 @@ function App() {
         console.log(mainImg2);
 
         // Detect a single face from the current selfie image
-        const selfieFaceDetection = await faceapi
+        const personImage = await faceapi
           .detectSingleFace(mainImg2, new faceapi.TinyFaceDetectorOptions())
           .withFaceLandmarks()
           .withFaceDescriptor();
 
-        if (selfieFaceDetection) {
+        if (personImage) {
           // Using Euclidean distance to compare face descriptions
           const dist = faceapi.euclideanDistance(
-            idCardFaceDetection.descriptor,
-            selfieFaceDetection.descriptor
+            sourceImages.descriptor,
+            personImage.descriptor
           );
 
           if (dist < 0.6) {
             setFoundInfo(info);
             console.log(info);
             setDistance(dist);
+
+
+
+            editMissingInfo(info._id);
+            editPersonInfo(image1._id);
 
             break;
           } else {
@@ -128,7 +170,10 @@ function App() {
   return (
     <>
       {loading ? (
-       <div className="w-full flex justify-center items-center min-h-screen"> <LottieAnimation animate={lottie} /></div>
+        <div className="w-full flex justify-center items-center min-h-screen">
+          {" "}
+          <LottieAnimation animate={lottie} />
+        </div>
       ) : (
         <div>
           {distance < 0.6 ? (
@@ -142,10 +187,12 @@ function App() {
               </p>
             </div>
           ) : (
-           <div className="flex flex-col items-center min-h-screen justify-center">
-            <LottieAnimation animate={lottie2}/>
-             <p className="text-red-600 font-mono font-bold text-5xl flex gap-2 my-5 ms-4"><RxCross1 size={40} /> Missing Person has not been found</p>
-           </div>
+            <div className="flex flex-col items-center min-h-screen justify-center">
+              <LottieAnimation animate={lottie2} />
+              <p className="text-red-600 font-mono font-bold text-5xl flex gap-2 my-5 ms-4">
+                <RxCross1 size={40} /> Missing Person has not been found
+              </p>
+            </div>
           )}
           {foundInfo && (
             <div>

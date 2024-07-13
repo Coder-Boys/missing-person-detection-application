@@ -35,7 +35,7 @@ export default function AddMissingForm() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const session = useSession();
   console.log(session);
-  const data = session.data;
+  const status = session?.status;
   // const id = data.user.id;
 
   const handleSubmit = async () => {
@@ -43,9 +43,9 @@ export default function AddMissingForm() {
     // if (post.length === 1) {
     //   alert("You can add one missing person right now");
     // }
-    // if (!data) {
-    //   router.push("/auth/signin");
-    // }
+    if (status === "unauthenticated") {
+      router.push("/auth/signin");
+    }
   };
   if (isDesktop) {
     return (
@@ -76,7 +76,7 @@ export default function AddMissingForm() {
                 missing person
               </DialogDescription>
             </DialogHeader>
-            <ProfileForm />
+            <ProfileForm setOpen={setOpen} />
           </DialogContent>
         </Dialog>
       </div>
@@ -109,7 +109,7 @@ export default function AddMissingForm() {
               Make changes to your profile here. Click save when you re done.
             </DrawerDescription>
           </DrawerHeader>
-          <ProfileForm className="px-4" />
+          <ProfileForm setOpen={setOpen} className="px-4" />
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -121,7 +121,18 @@ export default function AddMissingForm() {
   );
 }
 
-function ProfileForm({ className }: React.ComponentProps<"form">) {
+function ProfileForm({
+  className,
+  setOpen,
+}: {
+  className: React.ComponentProps<"form">;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const router = useRouter();
+  const handleSubmit = () => {
+    router.refresh();
+    setOpen(false);
+  };
   return (
     <div
       className="px-6 rounded-lg py-2"
@@ -188,7 +199,7 @@ function ProfileForm({ className }: React.ComponentProps<"form">) {
           placeholder="Type necessary info about the missin person."
         />
 
-        <Button className="bg-my-gradient" type="submit">
+        <Button onClick={handleSubmit} className="bg-my-gradient" type="submit">
           Submit
         </Button>
       </form>

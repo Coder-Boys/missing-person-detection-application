@@ -8,6 +8,7 @@ import { RxCross1 } from "react-icons/rx";
 import MatchingImage from "next/image";
 import LottieAnimation from "@/components/LottieAnimation";
 
+
 interface FoundfoundInfoInfo {
   _id: string;
   name: string;
@@ -18,6 +19,9 @@ interface FoundfoundInfoInfo {
   textarea: string;
   contact: string;
 }
+
+
+
 const editMissingInfo = async (id) => {
   try {
     console.log(id);
@@ -52,6 +56,7 @@ const editPersonInfo = async (id) => {
     console.log(error);
   }
 };
+
 const getImageData = async () => {
   try {
     const res = await fetch(`http://localhost:3000/api/missingPeopleRoute/`, {
@@ -142,8 +147,12 @@ function App() {
             setFoundInfo(info);
             console.log(info);
             setDistance(dist);
+
+
+
             editMissingInfo(info._id);
             editPersonInfo(image1._id);
+
             break;
           } else {
             setDistance(dist);

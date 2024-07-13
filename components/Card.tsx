@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import MissingPerson from "@/lib/MissingPersonSchema";
+import { Badge } from "./ui/badge";
 
 const Card = ({ person }) => {
   return (
@@ -20,8 +21,18 @@ const Card = ({ person }) => {
             height={350}
           />
         </figure>
-        <div className="card-body items-center text-center">
-          <h2 className="font-bold my-3">{person.name}</h2>
+        <div className=" mx-3 items-center text-center">
+          <div className="flex justify-between my-3 mx-3">
+            <h2 className="font-bold">{person.name}</h2>
+            <h1>
+              <Badge
+                className={`${
+                  person.missing === "false" ? "bg-green-400" : "bg-red-400"
+                }`}
+              >{`${person.missing === "false" ? "Found" : "Missing"}`}</Badge>
+            </h1>
+          </div>
+
           <Link href={`/details/${person._id}`}>
             <Button className="bg-my-gradient mb-4">Details</Button>
           </Link>

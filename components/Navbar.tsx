@@ -6,6 +6,8 @@ import { SearchInput } from "./SearchInput";
 import { signOut } from "@/auth";
 import { getSession } from "@/lib/getSession";
 import { CgProfile } from "react-icons/cg";
+import { Badge } from "@/components/ui/badge"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,10 +17,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import MissingPerson from "@/lib/MissingPersonSchema";
+
 export default async function Navbar() {
   const session = await getSession();
   const user = session?.user;
-  console.log("ami eta", user);
+  const id = session?.user?.id;
+  // console.log("ami eta", user);
+ 
+  const persons = await MissingPerson.find({ userId: id });
+  console.log(persons)
   return (
     <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
       <Link
@@ -45,31 +53,31 @@ export default async function Navbar() {
 
         <Link
           href="/feed"
-            className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+          className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Feed
         </Link>
         <Link
           href="/missing"
-            className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+          className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Missing
         </Link>
         {user?.role === "user" ||
-          (user?.role === "admin" && (
+          (user?.role === "admin" && persons.length !== 0 && (
             <Link
               href="/found"
-                className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+              className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
               prefetch={false}
             >
-              Found
+             <Badge className="bg-green-400">Found</Badge>
             </Link>
           ))}
         <Link
           href="/contact"
-         className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+          className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
           prefetch={false}
         >
           Contact
@@ -93,11 +101,13 @@ export default async function Navbar() {
                 <CgProfile
                   className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
                   size={30}
-                 
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuLabel> <span className="text-violet-600">{user?.email}</span></DropdownMenuLabel>
+                <DropdownMenuLabel>
+                  {" "}
+                  <span className="text-violet-600">{user?.email}</span>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <Link href="/post">Edit post</Link>
@@ -122,7 +132,11 @@ export default async function Navbar() {
                       await signOut();
                     }}
                   >
-                    <Button className="bg-my-gradient" variant={"outline"} type="submit">
+                    <Button
+                      className="bg-my-gradient"
+                      variant={"outline"}
+                      type="submit"
+                    >
                       Sign Out
                     </Button>
                   </form>
@@ -153,26 +167,26 @@ export default async function Navbar() {
             </Link>
             <Link
               href="/feed"
-               className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+              className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Feed
             </Link>
             <Link
               href="/missing"
-               className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+              className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
               prefetch={false}
             >
               Missing
             </Link>
             {user?.role === "user" ||
-              (user?.role === "admin" && (
+              (user?.role === "admin" && persons.length !== null && (
                 <Link
                   href="/found"
-                    className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
+                  className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
                   prefetch={false}
                 >
-                  Found
+              <Badge className="bg-green-400">Found</Badge>
                 </Link>
               ))}
             <Link
@@ -200,13 +214,15 @@ export default async function Navbar() {
                     <CgProfile
                       className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
                       size={30}
-                     
                     />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuLabel> <span className="text-violet-600">{user?.email}</span></DropdownMenuLabel>
+                    <DropdownMenuLabel>
+                      {" "}
+                      <span className="text-violet-600">{user?.email}</span>
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                   
+
                     <DropdownMenuItem>
                       <Link href="/post">Edit post</Link>
                     </DropdownMenuItem>
@@ -230,7 +246,11 @@ export default async function Navbar() {
                           await signOut();
                         }}
                       >
-                        <Button className="bg-my-gradient" variant={"outline"} type="submit">
+                        <Button
+                          className="bg-my-gradient"
+                          variant={"outline"}
+                          type="submit"
+                        >
                           Sign Out
                         </Button>
                       </form>

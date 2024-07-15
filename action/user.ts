@@ -1,11 +1,11 @@
 "use server";
 
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { hash } from "bcryptjs";
 import { CredentialsSignin } from "next-auth";
 import { signIn } from "@/auth";
-import connectMongoDB from "@/lib/mongodb";
-import User from "@/lib/schema";
+import connectMongoDB from "@/database/mongodb";
+import { User } from "@/library/schema";
 
 const login = async (formData: FormData) => {
   const email = formData.get("email") as string;

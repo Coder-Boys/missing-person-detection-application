@@ -1,14 +1,12 @@
 import AddMissingForm from "@/components/AddMissingForm";
 import Card from "@/components/Card";
-import MissingPerson from "@/lib/MissingPersonSchema";
-import connectMongoDB from "@/lib/mongodb";
-import React from "react";
+import connectMongoDB from "@/database/mongodb";
+import { MissingPerson } from "@/library/schema";
 
 const Missing = async () => {
   await connectMongoDB();
 
-
-  const persons = await MissingPerson.find({missing:true});
+  const persons = await MissingPerson.find({ missing: true });
   // const persons = await MissingPerson.find({missing:false});
   return (
     <div>

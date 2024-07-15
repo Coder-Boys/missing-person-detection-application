@@ -1,10 +1,9 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-
 import { compare } from "bcryptjs";
-import connectMongoDB from "./lib/mongodb";
-import User from "./lib/schema";
+import connectMongoDB from "./database/mongodb";
+import { User } from "./library/schema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [

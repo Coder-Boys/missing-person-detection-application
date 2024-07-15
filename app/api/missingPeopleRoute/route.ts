@@ -1,7 +1,7 @@
-import connectMongoDB from "@/lib/mongodb";
-import MissingPerson from "@/lib/MissingPersonSchema";
-import { NextRequest, NextResponse } from "next/server";
-import { getSession } from "@/lib/getSession";
+import connectMongoDB from "@/database/mongodb";
+import { NextResponse } from "next/server";
+import { getSession } from "@/library/getSession";
+import { MissingPerson } from "@/library/schema";
 
 export async function GET(req) {
   try {

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import lottie from "../../components/lottieFiles/model1.json";
@@ -7,7 +7,6 @@ import lottie2 from "../../components/lottieFiles/not-found.json";
 import { RxCross1 } from "react-icons/rx";
 import MatchingImage from "next/image";
 import LottieAnimation from "@/components/LottieAnimation";
-
 
 interface FoundfoundInfoInfo {
   _id: string;
@@ -19,8 +18,6 @@ interface FoundfoundInfoInfo {
   textarea: string;
   contact: string;
 }
-
-
 
 const editMissingInfo = async (id) => {
   try {
@@ -147,8 +144,6 @@ function App() {
             setFoundInfo(info);
             console.log(info);
             setDistance(dist);
-
-
 
             editMissingInfo(info._id);
             editPersonInfo(image1._id);

@@ -1,11 +1,10 @@
 import ButtonX from "@/components/ButtonX";
 import { Button } from "@/components/ui/button";
-import { getSession } from "@/lib/getSession";
-import MissingPerson from "@/lib/MissingPersonSchema";
-import connectMongoDB from "@/lib/mongodb";
+import { getSession } from "@/library/getSession";
+import connectMongoDB from "@/database/mongodb";
+import { MissingPerson } from "@/library/schema";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const Post = async () => {
   const session = await getSession();

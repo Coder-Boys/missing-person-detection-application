@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
-import { getSession } from "@/lib/getSession";
+import { getSession } from "@/library/getSession";
 import { login } from "@/action/user";
 import { signIn } from "@/auth";
 import Image from "next/image";

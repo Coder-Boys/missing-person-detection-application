@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./darkModeBtn";
 import { SearchInput } from "./SearchInput";
 import { signOut } from "@/auth";
-import { getSession } from "@/lib/getSession";
+import { getSession } from "@/library/getSession";
 import { CgProfile } from "react-icons/cg";
 import { Badge } from "@/components/ui/badge";
 
@@ -16,8 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import MissingPerson from "@/lib/MissingPersonSchema";
+import { MissingPerson } from "@/library/schema";
 
 export default async function Navbar() {
   const session = await getSession();
@@ -66,16 +65,15 @@ export default async function Navbar() {
         >
           Missing
         </Link>
-        {user &&
-              persons.length !== 0 &&
-                <Link
-                  href="/found"
-                  className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
-                  prefetch={false}
-                >
-                  <Badge className="bg-green-400">Found</Badge>
-                </Link>
-              }
+        {user && persons.length !== 0 && (
+          <Link
+            href="/found"
+            className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
+            prefetch={false}
+          >
+            <Badge className="bg-green-400">Found</Badge>
+          </Link>
+        )}
         <Link
           href="/contact"
           className="font-medium hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-500"
@@ -180,16 +178,15 @@ export default async function Navbar() {
             >
               Missing
             </Link>
-            {user &&
-              persons.length !== 0 &&
-                <Link
-                  href="/found"
-                  className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
-                  prefetch={false}
-                >
-                  <Badge className="bg-green-400">Found</Badge>
-                </Link>
-              }
+            {user && persons.length !== 0 && (
+              <Link
+                href="/found"
+                className="font-medium text-violet-500 hover:transition hover:ease-in hover:duration-150 hover:scale-125 hover:text-violet-600"
+                prefetch={false}
+              >
+                <Badge className="bg-green-400">Found</Badge>
+              </Link>
+            )}
 
             <Link
               href="/contact"

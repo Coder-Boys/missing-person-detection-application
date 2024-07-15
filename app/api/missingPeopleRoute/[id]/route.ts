@@ -1,5 +1,5 @@
-import MissingPerson from "@/lib/MissingPersonSchema";
-import connectMongoDB from "@/lib/mongodb";
+import connectMongoDB from "@/database/mongodb";
+import { MissingPerson } from "@/library/schema";
 import { NextResponse } from "next/server";
 
 export async function PUT(req, { params }) {

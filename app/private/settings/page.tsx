@@ -1,8 +1,7 @@
 import { fetchAllUsers } from "@/action/user";
 import ButtonX from "@/components/ButtonX";
-import { getSession } from "@/lib/getSession";
-import User from "@/lib/schema";
-
+import { getSession } from "@/library/getSession";
+import { User } from "@/library/schema";
 import { redirect } from "next/navigation";
 
 const Settings = async () => {

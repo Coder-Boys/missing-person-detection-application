@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import MissingPerson from "@/lib/MissingPersonSchema";
 import { Badge } from "./ui/badge";
 
 const Card = ({ person }) => {

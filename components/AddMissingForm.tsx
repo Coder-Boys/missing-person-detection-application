@@ -27,7 +27,6 @@ import { IoMdAdd } from "react-icons/io";
 import { postData } from "@/action/postData";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import MissingPerson from "@/lib/MissingPersonSchema";
 
 export default function AddMissingForm() {
   const router = useRouter();
@@ -168,21 +167,7 @@ function ProfileForm({
             placeholder="Type Here"
           />
         </div>
-        {/* <div className="grid gap-1">
-          <div className="text-white">
-            <Label htmlFor="username">Gender</Label>
-          </div>
-          <Select name="gender">
-            <SelectTrigger className="w-[280px]">
-              <SelectValue placeholder="Select Gender" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-            </SelectContent>
-          </Select>
 
-        </div> */}
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="image">Picture</Label>
           <Input

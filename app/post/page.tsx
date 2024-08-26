@@ -1,6 +1,6 @@
 import ButtonX from "@/components/ButtonX";
 import { Button } from "@/components/ui/button";
-import { getSession } from "@/library/getSession";
+import { getSession } from "@/lib/getSession";
 import connectMongoDB from "@/database/mongodb";
 import { MissingPerson } from "@/library/schema";
 import Image from "next/image";

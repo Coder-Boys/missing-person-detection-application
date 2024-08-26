@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./darkModeBtn";
 import { SearchInput } from "./SearchInput";
 import { signOut } from "@/auth";
-import { getSession } from "@/library/getSession";
+import { getSession } from "@/lib/getSession";
 import { CgProfile } from "react-icons/cg";
 import { Badge } from "@/components/ui/badge";
 

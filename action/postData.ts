@@ -1,9 +1,9 @@
 "use server";
-import { getSession } from "@/library/getSession";
 import connectMongoDB from "@/database/mongodb";
 import { redirect } from "next/navigation";
 import { saveFile } from "./saveFile";
 import { MissingPerson } from "@/library/schema";
+import { getSession } from "@/lib/getSession";
 
 export const postData = async (formData: FormData) => {
   const session = await getSession();

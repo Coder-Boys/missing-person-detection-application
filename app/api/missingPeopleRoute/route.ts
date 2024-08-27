@@ -1,7 +1,7 @@
 import connectMongoDB from "@/database/mongodb";
 import { NextResponse } from "next/server";
-import { getSession } from "@/library/getSession";
 import { MissingPerson } from "@/library/schema";
+import { getSession } from "@/lib/getSession";
 
 export async function GET(req) {
   try {

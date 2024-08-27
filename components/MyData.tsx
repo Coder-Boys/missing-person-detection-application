@@ -1,5 +1,6 @@
 import connectMongoDB from '@/database/mongodb';
-import { getSession } from '@/library/getSession';
+import { getSession } from '@/lib/getSession';
+
 import { MissingPerson } from '@/library/schema';
 
 import Image from 'next/image';

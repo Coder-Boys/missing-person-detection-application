@@ -22,7 +22,8 @@ const login = async (formData: FormData) => {
     const someError = error as CredentialsSignin;
     return someError.cause;
   }
-  redirect("/feed");
+
+  redirect("/");
 };
 
 const register = async (formData: FormData) => {

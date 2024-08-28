@@ -25,26 +25,18 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { IoMdAdd } from "react-icons/io";
 import { postData } from "@/action/postData";
-import { useSession } from "next-auth/react";
+
 import { useRouter } from "next/navigation";
 
 export default function AddMissingForm() {
-  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  const session = useSession();
-  console.log(session);
-  const status = session?.status;
-  // const id = data.user.id;
 
   const handleSubmit = async () => {
     // const post = await MissingPerson.find({ userId: id });
     // if (post.length === 1) {
     //   alert("You can add one missing person right now");
     // }
-    if (status === "unauthenticated") {
-      router.push("/auth/signin");
-    }
   };
   if (isDesktop) {
     return (
@@ -108,7 +100,7 @@ export default function AddMissingForm() {
               Make changes to your profile here. Click save when you re done.
             </DrawerDescription>
           </DrawerHeader>
-          <ProfileForm setOpen={setOpen} className="px-4" />
+          <ProfileForm setOpen={setOpen} />
           <DrawerFooter className="pt-2">
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
@@ -121,10 +113,8 @@ export default function AddMissingForm() {
 }
 
 function ProfileForm({
-  className,
   setOpen,
 }: {
-  className: React.ComponentProps<"form">;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const router = useRouter();
@@ -137,10 +127,7 @@ function ProfileForm({
       className="px-6 rounded-lg py-2"
       style={{ backgroundImage: `url(/bg2.avif)` }}
     >
-      <form
-        action={postData}
-        className={cn("grid items-start gap-1", className)}
-      >
+      <form action={postData} className={cn("grid items-start gap-1")}>
         <div className="grid gap-1 text-white">
           <Label htmlFor="username">Name</Label>
           <Input type="text" id="name" name="name" placeholder="Type Here" />

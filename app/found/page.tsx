@@ -1,4 +1,3 @@
-
 import ImageCompare from '@/components/ImageCompare';
 import MyData from '@/components/MyData';
 import React from 'react';

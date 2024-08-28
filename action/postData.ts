@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { saveFile } from "./saveFile";
 import { MissingPerson } from "@/library/schema";
 import { getSession } from "@/lib/getSession";
+import { revalidatePath } from "next/cache";
 
 export const postData = async (formData: FormData) => {
   const session = await getSession();
@@ -37,5 +38,5 @@ export const postData = async (formData: FormData) => {
   });
   console.log(`Missing Person data created successfully 🥂`);
 
-  redirect("/feed");
+  revalidatePath("/feed");
 };

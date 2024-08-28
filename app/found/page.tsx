@@ -8,7 +8,7 @@ import { RxCross1 } from "react-icons/rx";
 import MatchingImage from "next/image";
 import LottieAnimation from "@/components/LottieAnimation";
 
-interface FoundfoundInfoInfo {
+interface FoundInfo {
   _id: string;
   name: string;
   age: string;
@@ -77,7 +77,7 @@ function App() {
     }, 20000);
   }, []);
   const isFirstRender = useRef(true);
-  const [foundInfo, setFoundInfo] = useState<FoundfoundInfoInfo>();
+  const [foundInfo, setFoundInfo] = useState<FoundInfo>();
   const [distance, setDistance] = useState(null);
 
   const loadImage = async (url: string): Promise<HTMLImageElement> => {

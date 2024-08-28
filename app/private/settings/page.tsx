@@ -2,21 +2,22 @@ import { fetchAllUsers } from "@/action/user";
 import ButtonX from "@/components/ButtonX";
 import { getSession } from "@/lib/getSession";
 import { User } from "@/library/schema";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { notFound, redirect } from "next/navigation";
 
 const Settings = async () => {
   const session = await getSession();
   const user: any = session?.user;
   if (!user) return redirect("/auth/signin");
 
-  if (user?.role !== "admin") return redirect("/private/settings");
+  if (user?.role !== "admin") return notFound();
 
   const allUsers = await fetchAllUsers();
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">User List</h1>
-      <table className="w-full rounded shadow">
+    <div className="flex flex-col justify-center items-center h-full w-full p-4">
+      <h1 className="text-xl font-bold mb-4 text-center">User List</h1>
+      <table className="w-1/3 rounded shadow">
         <thead>
           <tr className=" text-violet-500 text-left">
             <th className="p-2">First Name</th>
@@ -35,6 +36,7 @@ const Settings = async () => {
                   action={async () => {
                     "use server";
                     await User.findByIdAndDelete(user._id);
+                    revalidatePath("/private/settings");
                   }}
                 >
                   <ButtonX>Delete</ButtonX>

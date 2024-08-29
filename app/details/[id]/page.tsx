@@ -35,7 +35,7 @@ const Details = async ({ params }) => {
 
           <h2 className="">Age: {person.age} years</h2>
           <h2 className="">Location: {person.location}</h2>
-          <h2 className="">Contact Info: {person.contact}</h2>
+          <h2 className="">Contact Info: <Badge className="bg-red-400">Hidden</Badge></h2>
           <h1
             className={`font-bold text-lg ${
               person.missing === "true" ? "text-red-400" : "text-green-500"

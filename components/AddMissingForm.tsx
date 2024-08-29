@@ -168,7 +168,7 @@ function ProfileForm({
         <Textarea
           name="textarea"
           className="my-1"
-          placeholder="Type necessary info about the missin person."
+          placeholder="Type necessary info about the missing person."
         />
 
         <Button onClick={handleSubmit} className="bg-my-gradient" type="submit">

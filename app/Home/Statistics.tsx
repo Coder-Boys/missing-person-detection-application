@@ -36,7 +36,7 @@ const Statistics = async () => {
           </h1>
           <h1 className="font-bold text-xl text-gray-400">
             {found?.length < 10 && "0"}
-            {found?.length}
+            {found?.length/2}
           </h1>
         </div>
       </div>

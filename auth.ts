@@ -2,8 +2,7 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import { compare } from "bcryptjs";
-import connectMongoDB from "./database/mongodb";
-import { User } from "./library/schema";
+import { PrismaClient } from "@prisma/client";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -20,14 +19,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         const email = credentials.email as string | undefined;
         const password = credentials.password as string | undefined;
-
+        const prisma = new PrismaClient();
         if (!email || !password) {
           throw new CredentialsSignin("Please provide both email & password");
         }
 
-        await connectMongoDB();
-
-        const user = await User.findOne({ email }).select("+password +role");
+        const user = await prisma.user.findFirst({
+          where: {
+            email: email,
+          },
+          select: {
+            id: true,
+            password: true, // Explicitly include the password
+            role: true, // Explicitly include the role
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        });
 
         if (!user) {
           throw new Error("Invalid email or password");
@@ -48,7 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           lastName: user.lastName,
           email: user.email,
           role: user.role,
-          id: user._id,
+          id: user.id,
         };
 
         return userData;
@@ -76,28 +85,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
 
-    signIn: async ({ user, account }) => {
-      if (account?.provider === "google") {
-        try {
-          const { email, name, image, id } = user;
-          await connectMongoDB();
-          const alreadyUser = await User.findOne({ email });
+    // signIn: async ({ user, account }) => {
+    //   if (account?.provider === "google") {
+    //     try {
+    //     const prisma = new PrismaClient();
 
-          if (!alreadyUser) {
-            await User.create({ email, name, image, authProviderId: id });
-          } else {
-            return true;
-          }
-        } catch (error) {
-          throw new Error("Error while creating user");
-        }
-      }
+    //       const { email, name, image, id } = user;
+    //       const alreadyUser = await prisma.user.findFirst({where:{ email }});
 
-      if (account?.provider === "credentials") {
-        return true;
-      } else {
-        return false;
-      }
-    },
+    //       if (!alreadyUser) {
+    //         await prisma.user.create({data : { email, firstName:name,
+    //           lastName:name, image, authProviderId: id }});
+    //       } else {
+    //         return true;
+    //       }
+    //     } catch (error) {
+    //       throw new Error("Error while creating user");
+    //     }
+    //   }
+
+    //   if (account?.provider === "credentials") {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // },
   },
 });

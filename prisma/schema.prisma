@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model User {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName      String
+  lastName       String
+  email          String
+  password       String   @map("password")
+  role           String   @default("user")
+  image          String?
+  textarea       String?
+  authProviderId String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model MissingPerson {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  age       String?
+  location  String
+  contact   String
+  imageUrl  String
+  userId    String?
+  missing   String   @default("true")
+  textarea  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

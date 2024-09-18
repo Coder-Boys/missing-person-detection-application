@@ -1,22 +1,25 @@
 import ButtonX from "@/components/ButtonX";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/getSession";
-import connectMongoDB from "@/database/mongodb";
-import { MissingPerson } from "@/library/schema";
+import { PrismaClient } from "@prisma/client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 const Post = async () => {
   const session = await getSession();
   const id = session?.user?.id;
-  await connectMongoDB();
-  const persons = await MissingPerson.find({ userId: id });
+  const prisma = new PrismaClient();
+
+  const persons = await prisma.missingPerson.findMany({
+    where: { userId: id },
+  });
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mx-5 place-content-center">
       {persons.map((person) => (
         <div
-          key={person._id}
+          key={person.id}
           className="text-gray-400 bg-gray-900 w-96 rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
         >
           <figure className="px-10 pt-10">
@@ -32,13 +35,13 @@ const Post = async () => {
             <h2 className="font-bold my-3">{person.name}</h2>
           </div>{" "}
           <div className="flex justify-between mx-4 my-3">
-            <Link href={`/details/${person._id}`}>
+            <Link href={`/details/${person.id}`}>
               <Button className="bg-my-gradient ">Details</Button>
             </Link>
             <form
               action={async () => {
                 "use server";
-                await MissingPerson.findByIdAndDelete(person._id);
+                await prisma.missingPerson.delete({ where: { id: person.id } });
               }}
             >
               <ButtonX>Delete</ButtonX>

@@ -11,7 +11,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import Image from "next/image";
 import { getSession } from "@/lib/getSession";
 import { redirect } from "next/navigation";
 import { register } from "@/action/user";

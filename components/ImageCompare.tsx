@@ -9,21 +9,7 @@ import lottie2 from "../components/lottieFiles/not-found.json";
 import { RxCross1 } from "react-icons/rx";
 import MatchingImage from "next/image";
 import LottieAnimation from "@/components/LottieAnimation";
-import connectMongoDB from "@/database/mongodb";
-import { getSession } from "next-auth/react";
-import { MissingPerson } from "@/library/schema";
-
-
-interface FoundfoundInfoInfo {
-  _id: string;
-  name: string;
-  age: string;
-  location: string;
-  imageUrl: string;
-  gender: string;
-  textarea: string;
-  contact: string;
-}
+import { MissingPerson } from "@prisma/client";
 
 const ImageCompare = () => {
   const editMissingInfo = async (id) => {
@@ -83,7 +69,7 @@ const ImageCompare = () => {
     }, 20000);
   }, []);
   const isFirstRender = useRef(true);
-  const [foundInfo, setFoundInfo] = useState<FoundfoundInfoInfo>();
+  const [foundInfo, setFoundInfo] = useState<MissingPerson>();
   const [distance, setDistance] = useState(null);
 
   const loadImage = async (url: string): Promise<HTMLImageElement> => {
@@ -151,8 +137,8 @@ const ImageCompare = () => {
             console.log(info);
             setDistance(dist);
 
-            editMissingInfo(info._id);
-            editPersonInfo(image1._id);
+            editMissingInfo(info.id);
+            editPersonInfo(image1.id);
 
             break;
           } else {
@@ -196,34 +182,31 @@ const ImageCompare = () => {
           )}
           {foundInfo && (
             <div>
-           
-             
-                <div
-                  key={foundInfo._id}
-                  className=" bg-gray-900 h-full rounded-xl pb-3 shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
-                >
-                  
-                  <figure className="px-10 pt-10 flex justify-center items-center">
-                    <MatchingImage
-                      src={foundInfo.imageUrl}
-                      alt="Shoes"
-                      className="rounded-xl object-cover h-[400px] hover:scale-110 hover:duration-200 hover:ease-in-out"
-                      width={450}
-                      height={350}
-                    />
-                  </figure>
-                  <div className="my-8 text-gray-400 mx-10 space-y-1">
-                    <h2 className="font-bold text-4xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)] my-5">
-                      {foundInfo.name}
-                    </h2>
+              <div
+                key={foundInfo.id}
+                className=" bg-gray-900 h-full rounded-xl pb-3 shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
+              >
+                <figure className="px-10 pt-10 flex justify-center items-center">
+                  <MatchingImage
+                    src={foundInfo.imageUrl}
+                    alt="Shoes"
+                    className="rounded-xl object-cover h-[400px] hover:scale-110 hover:duration-200 hover:ease-in-out"
+                    width={450}
+                    height={350}
+                  />
+                </figure>
+                <div className="my-8 text-gray-400 mx-10 space-y-1">
+                  <h2 className="font-bold text-4xl tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-[rgb(99,102,241)] to-[rgb(156,39,176)] my-5">
+                    {foundInfo.name}
+                  </h2>
 
-                    <h2 className="">Age: {foundInfo.age} years</h2>
-                    <h2 className="">Location: {foundInfo.location}</h2>
-                    <h2 className="">Contact Info: {foundInfo.contact}</h2>
-                    <h2 className="">Details: {foundInfo.textarea}</h2>
-                  </div>
+                  <h2 className="">Age: {foundInfo.age} years</h2>
+                  <h2 className="">Location: {foundInfo.location}</h2>
+                  <h2 className="">Contact Info: {foundInfo.contact}</h2>
+                  <h2 className="">Details: {foundInfo.textarea}</h2>
                 </div>
-      
+              </div>
+
               <div></div>
             </div>
           )}

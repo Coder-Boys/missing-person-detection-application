@@ -1,11 +1,8 @@
 "use server";
-import connectMongoDB from "@/database/mongodb";
-import { redirect } from "next/navigation";
 import { saveFile } from "./saveFile";
-import { MissingPerson } from "@/library/schema";
 import { getSession } from "@/lib/getSession";
 import { revalidatePath } from "next/cache";
-
+import { PrismaClient } from "@prisma/client";
 export const postData = async (formData: FormData) => {
   const session = await getSession();
   const name = formData.get("name") as string;
@@ -16,26 +13,24 @@ export const postData = async (formData: FormData) => {
   const imageUrl = formData.get("image") as File;
   const preset = "MissingPersonImage" as string;
   const url = await saveFile(imageUrl, preset);
-
+  const prisma = new PrismaClient();
   if (!name || !age || !location || !contact) {
     throw new Error("Please fill all fields");
   }
 
-  await connectMongoDB();
-
-  // existing user
-
   const userId = session?.user.id;
-
-  await MissingPerson.create({
-    name,
-    age,
-    contact,
-    location,
-    imageUrl: url,
-    textarea: textarea,
-    userId,
+  await prisma.missingPerson.create({
+    data: {
+      name,
+      age,
+      contact,
+      location,
+      imageUrl: url,
+      textarea: textarea,
+      userId,
+    },
   });
+
   console.log(`Missing Person data created successfully 🥂`);
 
   revalidatePath("/feed");

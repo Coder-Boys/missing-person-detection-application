@@ -1,11 +1,13 @@
 import { fetchAllUsers } from "@/action/user";
 import ButtonX from "@/components/ButtonX";
 import { getSession } from "@/lib/getSession";
-import { User } from "@/library/schema";
+import { PrismaClient } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 
 const Settings = async () => {
+  const prisma = new PrismaClient();
+
   const session = await getSession();
   const user: any = session?.user;
   if (!user) return redirect("/auth/signin");
@@ -28,14 +30,14 @@ const Settings = async () => {
 
         <tbody>
           {allUsers?.map((user) => (
-            <tr key={user._id}>
+            <tr key={user.id}>
               <td className="p-2">{user.firstName}</td>
               <td className="p-2">{user.lastName}</td>
               <td className="p-2">
                 <form
                   action={async () => {
                     "use server";
-                    await User.findByIdAndDelete(user._id);
+                    await prisma.user.delete({ where: { id: user.id } });
                     revalidatePath("/private/settings");
                   }}
                 >

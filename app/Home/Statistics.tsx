@@ -1,9 +1,14 @@
-import { MissingPerson } from "@/library/schema";
+import { PrismaClient } from "@prisma/client";
 
 const Statistics = async () => {
-  const total = await MissingPerson.find({});
-  const found = await MissingPerson.find({ missing: false });
-  const missing = await MissingPerson.find({ missing: true });
+  const prisma = new PrismaClient();
+  const total = await prisma.missingPerson.findMany();
+  const found = await prisma.missingPerson.findMany({
+    where: { missing: "false" },
+  });
+  const missing = await prisma.missingPerson.findMany({
+    where: { missing: "true" },
+  });
   return (
     <div className="flex justify-center flex-col items-center my-24">
       <h1 className="text-4xl text-center my-16 font-bold uppercase">

@@ -1,23 +1,23 @@
-import connectMongoDB from "@/database/mongodb";
-import { NextResponse } from "next/server";
-import { MissingPerson } from "@/library/schema";
+// import connectMongoDB from "@/database/mongodb";
+import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/getSession";
+import { PrismaClient } from "@prisma/client";
 
-export async function GET(req) {
+export async function GET(req: NextRequest) {
   try {
+    const prisma = new PrismaClient();
     const session = await getSession();
     const userId = session?.user?.id;
-    await connectMongoDB();
 
-    // if (!image1) {
-    //   return NextResponse.json({ message: "No image found for user" });
-    // }
+    const image1 = await prisma.missingPerson.findFirst({ where: { userId } });
 
-    const image1 = await MissingPerson.findOne({ userId: userId });
-    const arrImg = await MissingPerson.aggregate([
-      { $match: { userId: { $ne: userId } } },
-      // { $project: { imageUrl: 1, _id: 0 } },
-    ]);
+    const arrImg = await prisma.missingPerson.findMany({
+      where: {
+        userId: {
+          not: userId,
+        },
+      },
+    });
 
     return NextResponse.json({ image1, arrImg }, { status: 200 });
   } catch (error) {

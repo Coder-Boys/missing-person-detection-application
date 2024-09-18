@@ -1,22 +1,20 @@
 import { Badge } from "@/components/ui/badge";
 
-import connectMongoDB from "@/database/mongodb";
-import { MissingPerson } from "@/library/schema";
+import { PrismaClient } from "@prisma/client";
 
 import Image from "next/image";
 import React from "react";
 
 const Details = async ({ params }) => {
-  await connectMongoDB();
+  const prisma = new PrismaClient();
+
   const id = params.id;
-  const person = await MissingPerson.findOne({ _id: id });
-  // const persons = await MissingPerson.find({missing:true});
-  // const persons = await MissingPerson.find({missing:false});
+  const person = await prisma.missingPerson.findUnique({ where: { id } });
 
   return (
     <div className="flex justify-center items-center mx-4">
       <div
-        key={person}
+        key={person.id}
         className=" bg-gray-900 w-[800px] h-full rounded-xl shadow-lg my-5  shadow-[rgb(156,39,176)]/60"
       >
         <figure className="px-10 pt-10 flex justify-center items-center">

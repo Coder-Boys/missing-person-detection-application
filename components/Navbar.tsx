@@ -16,18 +16,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MissingPerson } from "@/library/schema";
+// import { MissingPerson } from "@/library/schema";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { PrismaClient } from "@prisma/client";
 
 export default async function Navbar() {
   const session = await getSession();
   const user = session?.user;
+  const prisma = new PrismaClient();
 
   const id = session?.user?.id;
   // console.log("ami eta", user);
 
-  const persons = await MissingPerson.find({ userId: id });
+  const persons = await prisma.missingPerson.findMany({
+    where: { userId: id },
+  });
   // console.log(persons);
   return (
     <nav className="flex items-center justify-between px-2 py-2 bg-white shadow-xl dark:bg-gray-800">
